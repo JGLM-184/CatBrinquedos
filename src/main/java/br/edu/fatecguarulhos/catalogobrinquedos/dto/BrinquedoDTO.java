@@ -28,8 +28,15 @@ public class BrinquedoDTO {
 
 	}
 
-	public BrinquedoDTO(String nome, String marca, String categoria, String idadeIdeal,
-			String imagemPrincipal, double preco, boolean destaque) {
+	
+
+	public BrinquedoDTO(@NotBlank(message = "O nome é obrigatório") String nome,
+			@NotBlank(message = "A marca é obrigatória") String marca,
+			@NotBlank(message = "A categoria é obrigatória") String categoria,
+			@NotBlank(message = "A idade recomendada é obrigatória") String idadeIdeal,
+			@NotBlank(message = "A imagem é obrigatória") String imagemPrincipal,
+			@NotBlank(message = "O preço é obrigatório") double preco, boolean destaque) {
+		super();
 		this.nome = nome;
 		this.marca = marca;
 		this.categoria = categoria;
@@ -38,6 +45,8 @@ public class BrinquedoDTO {
 		this.preco = preco;
 		this.destaque = destaque;
 	}
+
+
 
 	public String getNome() {
 		return nome;
