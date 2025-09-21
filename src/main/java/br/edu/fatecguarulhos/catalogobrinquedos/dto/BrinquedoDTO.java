@@ -19,7 +19,6 @@ public class BrinquedoDTO {
 	@NotBlank(message = "A imagem é obrigatória")
 	private String imagemPrincipal;
 	
-	@NotBlank(message = "O preço é obrigatório")
 	private double preco;
 	
 	private boolean destaque;

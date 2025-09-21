@@ -35,6 +35,15 @@ public class Brinquedo {
 		this.preco = preco;
 		this.destaque = destaque;
 	}
+	
+	public int getId() {
+	    return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+
 
 	public String getNome() {
 		return nome;
