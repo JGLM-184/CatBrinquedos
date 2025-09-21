@@ -17,11 +17,27 @@ public class BrinquedoService {
 	@Autowired
 	private BrinquedoRepository brinquedoRepository;
 	
+	
+	
+	//-------------------- CONSULTAR E FILTROS --------------------
+	
 	public List<Brinquedo> listarTodos(){
 		return brinquedoRepository.findAll();
 	}
 	
+	public List<Brinquedo> buscarPorCategoria(String categoria) {
+	    return brinquedoRepository.findByCategoria(categoria);
+	}
 
+	public List<Brinquedo> buscarPorNome(String nome) {
+	    return brinquedoRepository.findByNomeContainingIgnoreCase(nome);
+	}
+	
+	public List<Brinquedo> buscarPorFaixaDePreco(double min, double max) {
+	    return brinquedoRepository.findByPrecoBetween(min, max);
+	}
+
+	//-------------------- CRUD --------------------
 	public Brinquedo salvar(BrinquedoDTO dto) {
 		Brinquedo brinquedo = new Brinquedo();
 		

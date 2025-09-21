@@ -1,6 +1,8 @@
 package br.edu.fatecguarulhos.catalogobrinquedos.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 public class BrinquedoDTO {
 
@@ -19,6 +21,9 @@ public class BrinquedoDTO {
 	@NotBlank(message = "A imagem é obrigatória")
 	private String imagemPrincipal;
 	
+	@NotNull(message = "O preço é obrigatório")
+	@PositiveOrZero
+	(message = "O preço não pode ser negativo")
 	private double preco;
 	
 	private boolean destaque;
