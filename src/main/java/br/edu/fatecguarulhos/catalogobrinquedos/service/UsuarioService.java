@@ -25,6 +25,11 @@ public class UsuarioService {
 	 * SOMENTE ELE PODE REALIZAR A MANUTENÇÃO DOS USUÁRIOS
 	 */
 	
+	public Usuario buscarPorUsername(String username) {
+	    return usuarioRepository.findByUsername(username)
+	            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+	}
+	
 	public List<Usuario> listarTodos(Usuario usuarioLogado) {
 	    if (!usuarioLogado.isAdmin()) {
 	        throw new RuntimeException("ACESSO NEGADO: APENAS ADMINISTRADORES PODEM LISTAR USUÁRIOS.");
