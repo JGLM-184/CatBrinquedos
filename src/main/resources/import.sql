@@ -1,0 +1,5 @@
+INSERT INTO brinquedo (nome, marca, categoria, idade_ideal, imagem_principal, preco, destaque) VALUES ('Carrinho de Controle Remoto', 'FunToy', 'Veículos', '6+', '/imagens/brinquedos/Carrinho de Controle Remoto.jpg', 149.90, true);
+INSERT INTO brinquedo (nome, marca, categoria, idade_ideal, imagem_principal, preco, destaque) VALUES ('Boneca Fashion', 'Bella', 'Bonecas', '3+', '/imagens/brinquedos/Boneca Fashion.jpg', 89.90, false);
+INSERT INTO brinquedo (nome, marca, categoria, idade_ideal, imagem_principal, preco, destaque) VALUES ('Quebra-Cabeça 500 peças', 'PuzzleMax', 'Quebra-Cabeças', '8+', '/imagens/brinquedos/Quebra-Cabeça 500 peças.jpg', 59.50, true);
+INSERT INTO brinquedo (nome, marca, categoria, idade_ideal, imagem_principal, preco, destaque) VALUES ('Blocos de Montar', 'Construtor', 'Educativos', '4+', '/imagens/brinquedos/Blocos de Montar.jpg', 79.90, false);
+INSERT INTO brinquedo (nome, marca, categoria, idade_ideal, imagem_principal, preco, destaque) VALUES ('Futebol de Botão', 'SportsFun', 'Jogos', '7+', '/imagens/brinquedos/Futebol de Botão.jpg', 39.90, true);
