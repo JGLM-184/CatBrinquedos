@@ -15,6 +15,7 @@ public class Brinquedo {
 	private String nome;
 	private String marca;
 	private String categoria;
+	private String descricao;
 	private String idadeIdeal;
 	private String imagemPrincipal;
 	private double preco;
@@ -24,12 +25,13 @@ public class Brinquedo {
 		
 	}
 
-	public Brinquedo(String nome, String marca, String categoria, String idadeIdeal, String imagemPrincipal,
+	public Brinquedo(String nome, String marca, String categoria, String descricao, String idadeIdeal, String imagemPrincipal,
 			double preco, boolean destaque) {
 		super();
 		this.nome = nome;
 		this.marca = marca;
 		this.categoria = categoria;
+		this.descricao = descricao;
 		this.idadeIdeal = idadeIdeal;
 		this.imagemPrincipal = imagemPrincipal;
 		this.preco = preco;
@@ -67,6 +69,14 @@ public class Brinquedo {
 
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public String getIdadeIdeal() {

@@ -52,6 +52,7 @@ public class BrinquedoService {
 		brinquedo.setNome(dto.getNome());
 		brinquedo.setMarca(dto.getMarca());
 		brinquedo.setCategoria(dto.getCategoria());
+		brinquedo.setDescricao(dto.getDescricao());
 		brinquedo.setIdadeIdeal(dto.getIdadeIdeal());
 		brinquedo.setImagemPrincipal(dto.getImagemPrincipal());
 		brinquedo.setPreco(dto.getPreco());
@@ -67,6 +68,7 @@ public class BrinquedoService {
 		brinquedo.setNome(dto.getNome());
 		brinquedo.setMarca(dto.getMarca());
 		brinquedo.setCategoria(dto.getCategoria());
+		brinquedo.setDescricao(dto.getDescricao());
 		brinquedo.setIdadeIdeal(dto.getIdadeIdeal());
 		brinquedo.setImagemPrincipal(salvarImagem(dto.getNome(), file));
 		brinquedo.setPreco(dto.getPreco());
@@ -140,6 +142,7 @@ public class BrinquedoService {
 			brinquedo.setNome(dto.getNome());
 			brinquedo.setMarca(dto.getMarca());
 			brinquedo.setCategoria(dto.getCategoria());
+			brinquedo.setDescricao(dto.getDescricao());
 			brinquedo.setIdadeIdeal(dto.getIdadeIdeal());
 			brinquedo.setPreco(dto.getPreco());
 			brinquedo.setDestaque(dto.isDestaque());		

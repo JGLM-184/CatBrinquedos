@@ -14,6 +14,9 @@ public class BrinquedoDTO {
 	
 	@NotBlank(message = "A categoria é obrigatória")
 	private String categoria;
+	
+	@NotBlank(message = "A descrição é obrigatória")
+	private String descricao;
 
 	@NotBlank(message = "A idade recomendada é obrigatória")
 	private String idadeIdeal;
@@ -36,7 +39,8 @@ public class BrinquedoDTO {
 
 	public BrinquedoDTO(@NotBlank(message = "O nome é obrigatório") String nome,
 			@NotBlank(message = "A marca é obrigatória") String marca,
-			@NotBlank(message = "A categoria é obrigatória") String categoria,
+			@NotBlank(message = "A categoria é obrigatória") String categoria, 
+			@NotBlank(message = "A descrição é obrigatória") String descricao,
 			@NotBlank(message = "A idade recomendada é obrigatória") String idadeIdeal,
 			@NotBlank(message = "A imagem é obrigatória") String imagemPrincipal,
 			@NotBlank(message = "O preço é obrigatório") double preco, boolean destaque) {
@@ -44,6 +48,7 @@ public class BrinquedoDTO {
 		this.nome = nome;
 		this.marca = marca;
 		this.categoria = categoria;
+		this.descricao = descricao;
 		this.idadeIdeal = idadeIdeal;
 		this.imagemPrincipal = imagemPrincipal;
 		this.preco = preco;
@@ -74,6 +79,14 @@ public class BrinquedoDTO {
 	
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public String getIdadeIdeal() {
