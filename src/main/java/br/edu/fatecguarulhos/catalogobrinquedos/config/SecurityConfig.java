@@ -36,7 +36,7 @@ public class SecurityConfig {
             )
             .logout(logout -> logout
                 .logoutUrl("/logout") // URL do logout
-                .logoutSuccessUrl("/index.html") // redireciona depois de sair
+                .logoutSuccessUrl("/index") // redireciona depois de sair
                 .permitAll()
             )
             .userDetailsService(customUserDetailsService);
