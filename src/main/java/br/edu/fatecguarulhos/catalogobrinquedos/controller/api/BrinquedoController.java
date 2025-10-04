@@ -26,66 +26,66 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/brinquedos")
 public class BrinquedoController {
 
-	@Autowired
-	private BrinquedoService brinquedoService;
-	
-	@GetMapping 	//GET = CONSULTA
-	public List<Brinquedo> listar() {
-		return brinquedoService.listarTodos();
-	}
-	
-	@GetMapping("/categoria/{categoria}")
-	public List<Brinquedo> listarPorCategoria(@PathVariable String categoria) {
-	    return brinquedoService.buscarPorCategoria(categoria);
-	    
-	    //PARA PESQUISAR UMA CATEGORIA QUE TEM ESPAÇO NO NOME, COLOQUE %20 ENTRE OS ESPAÇOS
-	}
-	
-	@GetMapping("/nome/{nome}")
-	public List<Brinquedo> buscarPorNome(@PathVariable String nome) {
-	    return brinquedoService.buscarPorNome(nome);
-	}
-	
-	@GetMapping("/preco")
-	public List<Brinquedo> buscarPorFaixaDePreco(@RequestParam double min, @RequestParam double max) {
-	    return brinquedoService.buscarPorFaixaDePreco(min, max);
-	    
-	    //EXEMPLO DE BUSCA -> preco?min=50&max=200
-	}
+    @Autowired
+    private BrinquedoService brinquedoService;
 
+    //-------------------- CONSULTAS --------------------
+    @GetMapping
+    public List<Brinquedo> listar() {
+        return brinquedoService.listarTodos();
+    }
 
-	//-------------------- CRUD --------------------
-	@PostMapping	//POST = CRIAR
+    @GetMapping("/categoria/{categoria}")
+    public List<Brinquedo> listarPorCategoria(@PathVariable int categoriaId) {
+        return brinquedoService.buscarPorCategoria(categoriaId);
+
+        // RETORNA OS BRINQUEDOS DE UMA CATEGORIA
+        // PARA CATEGORIAS COM ESPAÇO NO NOME, USE "%20" ENTRE AS PALAVRAS
+    }
+
+    @GetMapping("/nome/{nome}")
+    public List<Brinquedo> buscarPorNome(@PathVariable String nome) {
+        return brinquedoService.buscarPorNome(nome);
+
+        // RETORNA OS BRINQUEDOS CUJO NOME CONTÉM O TERMO INFORMADO (IGNORANDO MAIÚSCULAS/MINÚSCULAS)
+    }
+
+    @GetMapping("/preco")
+    public List<Brinquedo> buscarPorFaixaDePreco(@RequestParam double min, @RequestParam double max) {
+        return brinquedoService.buscarPorFaixaDePreco(min, max);
+
+        // EXEMPLO DE USO -> /api/brinquedos/preco?min=50&max=200
+    }
+
+    //-------------------- CRUD --------------------
+    @PostMapping	//POST = CRIAR
     public ResponseEntity<Brinquedo> criar(@Valid @RequestBody BrinquedoDTO dto) {
-        Brinquedo salvo = brinquedoService.salvar(dto);         
+        Brinquedo salvo = brinquedoService.salvar(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(salvo.getId()).toUri();
-        
+
         return ResponseEntity.created(uri).body(salvo);
 
-        // CHAMA O SERVICE, QUE TRANSFORMA O 'DTO' EM 'ENTITY' E SALVA NO BANCO
-        // MONTA URI DO RECURSO CRIADO -> /api/brinquedos/{id}
-        //URI = UNIFORM RESOURCE IDENTIFIER
-        //É O QUE COSTUMAMOS CHAMAR DE "CAMINHO" OU URL
-        //É O 'ENDEREÇO' QUE O FRONTEND OU O POSTMAN VAI ACESSAR PARA INTERAGIR COM OS DADOS
-        // RETORNA 200 QUE DEU CERTO
+        // SALVA O NOVO BRINQUEDO
+        // MONTA URI DO NOVO RECURSO -> /api/brinquedos/{id}
+        // RETORNA 201 (CREATED) COM O OBJETO SALVO
     }
-	
-	@PutMapping("/{id}") 	//PUT = ALTERAR/ATUALIZAR
-	public ResponseEntity<Brinquedo> atualizar(@PathVariable int id, @Valid @RequestBody BrinquedoDTO dto) {
-		Optional<Brinquedo> brinquedoAtualizado = brinquedoService.atualizar(id, dto);
-		
-		return brinquedoAtualizado.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-		
-		// SE EXISTIR O BRINQUEDO, RETORNA 200 COM O OBJETO ATUALIZADO
-		// SE NÃO EXISTIR, RETORNA 404
-	}
-	
-	@DeleteMapping("/{id}") 	//DELETE = EXCLUIR
-	public ResponseEntity<Void> excluir(@PathVariable int id) {
-	    brinquedoService.excluir(id);
-	    return ResponseEntity.noContent().build();
-	    
-	    //PEGA O ID DO BRINQUEDO E EXCLUI
-	    //SE FOR CERTO RETORNA 204
-	}
+
+    @PutMapping("/{id}")	//PUT = ATUALIZAR
+    public ResponseEntity<Brinquedo> atualizar(@PathVariable int id, @Valid @RequestBody BrinquedoDTO dto) {
+        Optional<Brinquedo> brinquedoAtualizado = brinquedoService.atualizar(id, dto);
+
+        return brinquedoAtualizado.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+
+        // SE EXISTIR O BRINQUEDO, RETORNA 200 COM O OBJETO ATUALIZADO
+        // SE NÃO EXISTIR, RETORNA 404
+    }
+
+    @DeleteMapping("/{id}")	//DELETE = EXCLUIR
+    public ResponseEntity<Void> excluir(@PathVariable int id) {
+        brinquedoService.excluir(id);
+        return ResponseEntity.noContent().build();
+
+        // EXCLUI O BRINQUEDO PELO ID
+        // SE TUDO DER CERTO, RETORNA 204 (NO CONTENT)
+    }
 }

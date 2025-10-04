@@ -1,5 +1,6 @@
 package br.edu.fatecguarulhos.catalogobrinquedos.dto;
 
+import br.edu.fatecguarulhos.catalogobrinquedos.model.entity.Categoria;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -13,7 +14,7 @@ public class BrinquedoDTO {
 	private String marca;
 	
 	@NotBlank(message = "A categoria é obrigatória")
-	private String categoria;
+	private Categoria categoria;
 	
 	@NotBlank(message = "A descrição é obrigatória")
 	private String descricao;
@@ -39,7 +40,7 @@ public class BrinquedoDTO {
 
 	public BrinquedoDTO(@NotBlank(message = "O nome é obrigatório") String nome,
 			@NotBlank(message = "A marca é obrigatória") String marca,
-			@NotBlank(message = "A categoria é obrigatória") String categoria, 
+			@NotBlank(message = "A categoria é obrigatória") Categoria categoria, 
 			@NotBlank(message = "A descrição é obrigatória") String descricao,
 			@NotBlank(message = "A idade recomendada é obrigatória") String idadeIdeal,
 			@NotBlank(message = "A imagem é obrigatória") String imagemPrincipal,
@@ -54,8 +55,6 @@ public class BrinquedoDTO {
 		this.preco = preco;
 		this.destaque = destaque;
 	}
-
-
 
 	public String getNome() {
 		return nome;
@@ -73,11 +72,11 @@ public class BrinquedoDTO {
 		this.marca = marca; 
 	}
 
-	public String getCategoria() { 
+	public Categoria getCategoria() { 
 		return categoria; 
 	}
 	
-	public void setCategoria(String categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 

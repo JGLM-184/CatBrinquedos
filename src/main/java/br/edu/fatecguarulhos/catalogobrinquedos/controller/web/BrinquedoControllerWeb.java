@@ -1,6 +1,5 @@
 package br.edu.fatecguarulhos.catalogobrinquedos.controller.web;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,60 +13,116 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.edu.fatecguarulhos.catalogobrinquedos.dto.BrinquedoDTO;
+import br.edu.fatecguarulhos.catalogobrinquedos.dto.CategoriaDTO;
 import br.edu.fatecguarulhos.catalogobrinquedos.model.entity.Brinquedo;
+import br.edu.fatecguarulhos.catalogobrinquedos.model.entity.Categoria;
 import br.edu.fatecguarulhos.catalogobrinquedos.service.BrinquedoService;
+import br.edu.fatecguarulhos.catalogobrinquedos.service.CategoriaService;
 
 @Controller
 public class BrinquedoControllerWeb {
-	
-	@Autowired
-	private BrinquedoService brinquedoService;
-	
-	@GetMapping("/inicio")
+
+    @Autowired
+    private BrinquedoService brinquedoService;
+
+    @Autowired
+    private CategoriaService categoriaService;
+
+    // Página inicial
+    @GetMapping("/inicio")
     public String inicio(Model model) {
-		List<Brinquedo> listaDeBrinquedos = brinquedoService.listarTodos();
-		model.addAttribute("listaDeBrinquedos", listaDeBrinquedos);
-        return "inicio"; // retorna o arquivo inicio.html
+        List<Brinquedo> listaDeBrinquedos = brinquedoService.listarTodos();
+        List<Categoria> listaDeCategorias = categoriaService.listarTodas();
+        model.addAttribute("listaDeBrinquedos", listaDeBrinquedos);
+        model.addAttribute("listaDeCategorias", listaDeCategorias);
+        return "inicio";
     }
-	
-	@GetMapping("/login")
-	public String login() {
-	    return "login"; // Nome do seu arquivo login.html dentro de templates/
-	}
-	
-	//-------------- URLS PARA TESTAR A APLICAÇÃO WEB --------------
-	@GetMapping("/teste")
+
+    // Login
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    // ------------------ PÁGINA TESTE ------------------
+    @GetMapping("/teste")
     public String teste(Model model) {
-		List<Brinquedo> listaDeBrinquedos = brinquedoService.listarTodos();
-		model.addAttribute("listaDeBrinquedos", listaDeBrinquedos);
-        return "teste"; // retorna o arquivo teste.html
-	}
-	
-	@PostMapping("/teste/criar-brinquedo")
-    public String criar(@ModelAttribute BrinquedoDTO dto, @RequestParam("file") MultipartFile file) {
-		brinquedoService.salvar(dto, file);
-        return "redirect:/teste"; // salva o brinquedo e chama a url "/teste"
+        List<Brinquedo> listaDeBrinquedos = brinquedoService.listarTodos();
+        List<Categoria> listaDeCategorias = categoriaService.listarTodas();
+        model.addAttribute("listaDeBrinquedos", listaDeBrinquedos);
+        model.addAttribute("listaDeCategorias", listaDeCategorias);
+        return "teste";
     }
-	
-	@PostMapping("/teste/atualizar-brinquedo/{id}")
-	public String atualizar(@PathVariable("id") int id, @ModelAttribute BrinquedoDTO dto) {
-		brinquedoService.atualizar(id, dto);
-		return "redirect:/teste"; // atualiza o brinquedo e chama a url "/teste"
-	}
-	
-	@PostMapping("/teste/atualizar-imagem-brinquedo/{id}")
-	public String atualizarImagem(@PathVariable("id") int id, @ModelAttribute BrinquedoDTO dto,  MultipartFile file) {
-		brinquedoService.atualizarImagem(id, dto, file);
-		return "redirect:/teste"; // atualiza a imagem do brinquedo e chama a url "/teste"
-	}
-	
-	@GetMapping("/teste/excluir-brinquedo/{id}")
-	public String excluir(@PathVariable("id") int id) {
-		brinquedoService.excluir(id);
-		return "redirect:/teste"; // exclui o brinquedo e chama a url "/teste"
-	}
-	
-	
-	
-	
+
+    // ------------------ CRUD Brinquedos ------------------
+
+    @PostMapping("/teste/criar-brinquedo")
+    public String criarBrinquedo(@ModelAttribute BrinquedoDTO dto,
+                                 @RequestParam("file") MultipartFile file) {
+        brinquedoService.salvar(dto, file);
+        return "redirect:/teste";
+    }
+
+    @PostMapping("/teste/atualizar-brinquedo/{id}")
+    public String atualizarBrinquedo(@PathVariable("id") int id,
+                                     @ModelAttribute BrinquedoDTO dto) {
+        brinquedoService.atualizar(id, dto);
+        return "redirect:/teste";
+    }
+
+    @PostMapping("/teste/atualizar-imagem-brinquedo/{id}")
+    public String atualizarImagemBrinquedo(@PathVariable("id") int id,
+                                           @ModelAttribute BrinquedoDTO dto,
+                                           @RequestParam("file") MultipartFile file) {
+        brinquedoService.atualizarImagem(id, dto, file);
+        return "redirect:/teste";
+    }
+
+    @GetMapping("/teste/excluir-brinquedo/{id}")
+    public String excluirBrinquedo(@PathVariable("id") int id) {
+        brinquedoService.excluir(id);
+        return "redirect:/teste";
+    }
+
+    // ------------------ CRUD Categorias ------------------
+
+    @PostMapping("/teste/criar-categoria")
+    public String criarCategoria(@ModelAttribute CategoriaDTO categoria) {
+        categoriaService.salvar(categoria);
+        return "redirect:/teste";
+    }
+
+    @PostMapping("/teste/atualizar-categoria/{id}")
+    public String atualizarCategoria(@PathVariable("id") int id,
+                                     @ModelAttribute CategoriaDTO categoria) {
+        categoriaService.atualizar(id, categoria);
+        return "redirect:/teste";
+    }
+
+    @GetMapping("/teste/excluir-categoria/{id}")
+    public String excluirCategoria(@PathVariable("id") int id) {
+        categoriaService.excluir(id);
+        return "redirect:/teste";
+    }
+
+    // ------------------ Visualizar Brinquedos por Categoria ------------------
+
+    @GetMapping("/teste/brinquedos-por-categoria/{id}")
+    public String listarPorCategoria(@PathVariable("id") int id, Model model) {
+    	String categoria;
+    	if (categoriaService.buscarPorId(id).isPresent()) {
+    		categoria = categoriaService.buscarPorId(id).get().getNome();
+    	}
+    	else {
+    		categoria = "Categoria Não Existe";
+    	}
+    	
+        List<Brinquedo> brinquedos = brinquedoService.buscarPorCategoria(id);
+
+        model.addAttribute("categoriaSelecionada", categoria);
+        model.addAttribute("listaDeBrinquedos", brinquedos);
+        model.addAttribute("listaDeCategorias", categoriaService.listarTodas());
+
+        return "teste";
+    }
 }
