@@ -31,8 +31,8 @@ public class BrinquedoControllerWeb {
     }
 	
 	@GetMapping("/login")
-	public String telaLogin() {
-		return "login";
+	public String login() {
+	    return "login"; // Nome do seu arquivo login.html dentro de templates/
 	}
 	
 	//-------------- URLS PARA TESTAR A APLICAÇÃO WEB --------------
