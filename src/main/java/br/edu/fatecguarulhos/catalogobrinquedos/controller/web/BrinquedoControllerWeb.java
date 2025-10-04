@@ -30,6 +30,11 @@ public class BrinquedoControllerWeb {
         return "inicio"; // retorna o arquivo inicio.html
     }
 	
+	@GetMapping("/login")
+	public String telaLogin() {
+		return "login";
+	}
+	
 	//-------------- URLS PARA TESTAR A APLICAÇÃO WEB --------------
 	@GetMapping("/teste")
     public String teste(Model model) {

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cat Brinquedos</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">	
+</head>
+<body>
+
+<h1 class="text-center">Formulário Teste - Cat Brinquedos</h1>
+
+	<h1>Adicionar Brinquedo</h1>
+	<form th:action="@{/teste/criar-brinquedo}" method="POST" enctype="multipart/form-data">
+		Nome: <input type="text" name="nome" placeholder="Nome" size="60"/><br />
+		Marca: <input type="text" name="marca" placeholder="Marca"/><br />
+		Categoria: <input type="text" name="categoria" placeholder="Categoria"/><br />
+		Idade Ideal: <input type="text" name="idadeIdeal" placeholder="Classificação Indicativa"/><br />
+		Imagem: <input type="file" name="file"><br />
+		Preço: <input type="text" name="preco" placeholder="Preço R$"/><br />
+		Destaque: <input type="checkbox" name="destaque"/>Destaque<br />
+		<button type = "submit" class="btn btn-secondary">CRIAR</button><br />
+	</form><br/><br/>
+	
+	<h1>Lista De Brinquedos</h1>
+	
+	<ul>
+		<li th:each="brinquedo : ${listaDeBrinquedos}">
+			<form th:action="@{/teste/atualizar-brinquedo/{id}(id=${brinquedo.id})}" method="post">
+				<h2>Informações Básicas</h2>
+				ID: <input type="text" th:value="${brinquedo.id}" name="id" placeholder="Nome" disabled/><br />
+				Nome: <input type="text" th:value="${brinquedo.nome}" name="nome" placeholder="Nome" size="60"/><br />
+				Marca: <input type="text" th:value="${brinquedo.marca}" name="marca" placeholder="Marca"/><br />
+				Categoria: <input type="text" th:value="${brinquedo.categoria}" name="categoria" placeholder="Categoria"/><br />
+				Idade Ideal: <input type="text" th:value="${brinquedo.idadeIdeal}" name="idadeIdeal" placeholder="Classificação Indicativa"/><br />
+				Preço: <input type="text" th:value="${brinquedo.preco}" name="preco" placeholder="Preço R$"/><br />
+				<input type="checkbox" th:checked="${brinquedo.destaque}" name="destaque"/> Destaque<br /><br />
+				
+				<button type="submit" class="btn btn-primary">ATUALIZAR</button>
+				<a th:href="@{/teste/excluir-brinquedo/{id}(id=${brinquedo.id})}" class="btn btn-danger">EXCLUIR</a>
+			</form><br /><br />
+			
+			<form th:action="@{/teste/atualizar-imagem-brinquedo/{id}(id=${brinquedo.id})}" method="post" enctype="multipart/form-data">
+				<h2>Imagem</h2> <br />
+				<img th:src="${brinquedo.imagemPrincipal}" width="100px" height="100px" />
+				<input type="file" name="file"/>
+				<button type="submit" class="btn btn-primary">ATUALIZAR IMAGEM</button>
+			</form><br /><br />
+		</li>
+	</ul>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

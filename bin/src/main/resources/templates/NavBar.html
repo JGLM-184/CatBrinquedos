@@ -1,0 +1,65 @@
+<!-- navbar.html -->
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+		.botao-pesquisa {
+		    background-color: #489FB2; 
+		    color: white;              
+		    border: none;   
+			padding: 3px 10px; /* reduz a altura do botão */
+			font-size: 0.9rem; /* deixa o texto proporcional */           
+		}
+
+        .botao-pesquisa:hover {
+            background-color: #357b91; 
+        }
+
+		.input-pesquisa {
+		    width: 10px;      
+		    height: 30px;      
+		}
+
+		/* Cor quando passa o mouse por cima */
+		.nav-link.dropdown-toggle:hover {
+		    color: #73B96E;
+		}
+
+    </style>
+</head>
+<body>
+    <div th:fragment="navbar">
+        <nav class="navbar navbar-expand-sm navbar bg-danger fixed-top">
+          <div class="container">
+            <a class="navbar-brand" href="javascript:void(0)">Cat Brinquedos</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mynavbar">
+              <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0)">Inicio</a></li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Categorias</a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item " href="#">Veiculos</a></li>
+                    <li><a class="dropdown-item" href="#">Bonecas</a></li>
+                    <li><a class="dropdown-item" href="#">Quebra cabeca</a></li>
+                    <li><a class="dropdown-item" href="#">Educativos</a></li>
+                    <li><a class="dropdown-item" href="#">Jogos</a></li>
+					<li><a class="dropdown-item" href="#">Todos os produtos</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0)">Sobre</a></li>
+              </ul>
+              <form class="d-flex">
+                <input class="form-control input-pesquisa flex-grow-1" type="text" placeholder="Pesquisar">
+                <button class="btn botao-pesquisa" type="button"><img src="/imagens/Lupa.png"></button>
+              </form>
+            </div>
+          </div>
+          <a class="navbar-brand" href="#">Login<img src="/imagens/user.png" style="width:30px;" class="rounded-pill"></a>
+        </nav>
+    </div>
+	
+</body>
+</html>

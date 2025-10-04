@@ -3,7 +3,6 @@ package br.edu.fatecguarulhos.catalogobrinquedos.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -23,14 +22,26 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable()) // desabilita CSRF para testes via Postman
+            .csrf(csrf -> csrf.disable()) // desabilita CSRF para testes (depois pode reativar)
             .authorizeHttpRequests(auth -> auth
-               // .requestMatchers("/api/usuarios/**").hasRole("ADMIN") // só admin acessa
-                .anyRequest().permitAll() // todas as outras URLs liberadas
+                .requestMatchers("/api/usuarios/**").hasRole("ADMIN") // só admin acessa
+                .anyRequest().permitAll() // todo o resto está liberado
             )
-            .userDetailsService(customUserDetailsService) // usa nosso serviço de usuários
-            .httpBasic(Customizer.withDefaults()); // Basic Auth
+            .formLogin(form -> form
+                .loginPage("/login.html") // sua página de login (HTML que você já fez)
+                .loginProcessingUrl("/login") // endpoint que o form envia (action="/login")
+                .defaultSuccessUrl("/index.html", true) // para onde vai se o login der certo
+                .failureUrl("/login.html?error=true") // se der erro, volta para login com erro
+                .permitAll()
+            )
+            .logout(logout -> logout
+                .logoutUrl("/logout") // URL do logout
+                .logoutSuccessUrl("/index.html") // redireciona depois de sair
+                .permitAll()
+            )
+            .userDetailsService(customUserDetailsService);
 
         return http.build();
     }
+
 }

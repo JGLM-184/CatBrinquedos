@@ -3,4 +3,3 @@ INSERT INTO brinquedo (nome, marca, categoria, descricao, idade_ideal, imagem_pr
 INSERT INTO brinquedo (nome, marca, categoria, descricao, idade_ideal, imagem_principal, preco, destaque) VALUES ('Quebra-Cabeça 500 peças', 'PuzzleMax', 'Quebra-Cabeças',  'Muito difícil esse','8+', '/imagens/brinquedos/Quebra-Cabeça 500 peças.jpg', 59.50, false);
 INSERT INTO brinquedo (nome, marca, categoria, descricao, idade_ideal, imagem_principal, preco, destaque) VALUES ('Blocos de Montar', 'Construtor', 'Educativos', 'LEGOOO', '4+', '/imagens/brinquedos/Blocos de Montar.jpg', 79.90, true);
 INSERT INTO brinquedo (nome, marca, categoria, descricao, idade_ideal, imagem_principal, preco, destaque) VALUES ('Futebol de Botão', 'SportsFun', 'Jogos',  'Não curto muito','7+', '/imagens/brinquedos/Futebol de Botão.jpg', 39.90, false);
-INSERT INTO usuario (nome, username, senha, admin) VALUES ('Administrador', 'teste', '$2a$10$PGbBlRRc2YfnzSOXvh6PKe5GHzlJkY6UP2.LrPrv8suAmFfYykxdq', true)
