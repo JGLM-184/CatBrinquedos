@@ -34,6 +34,14 @@ public class BrinquedoController {
     public List<Brinquedo> listar() {
         return brinquedoService.listarTodos();
     }
+    
+    @GetMapping("/ids")
+    public ResponseEntity<List<Brinquedo>> listarPorIds(@RequestParam List<Integer> ids) {
+        List<Brinquedo> brinquedos = brinquedoService.buscarPorIds(ids);
+        return ResponseEntity.ok(brinquedos);
+        
+        // RETORNA OS BRINQUEDOS COM A LISTA DE IDS INFORMADA
+    }
 
     @GetMapping("/categoria/{categoria}")
     public List<Brinquedo> listarPorCategoria(@PathVariable int categoriaId) {

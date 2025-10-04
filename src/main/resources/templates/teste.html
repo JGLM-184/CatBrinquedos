@@ -107,6 +107,8 @@
                     <input type="checkbox" th:checked="${brinquedo.destaque}" name="destaque"/> Destaque
                 </div>
                 <div class="col-md-4 d-flex gap-2 mt-2">
+                	<!-- PARA A LISTA DE DESEJOS FUNCIONAR É PRECISO USAR O CÓDIGO JAVASCRIPT NO FIM DESTE ARQUIVO -->
+                	<button type="button" th:onclick="'adicionarDesejo(' + ${brinquedo.id} + ')'">Adicionar à Lista de Desejos</button>
                     <button type="submit" class="btn btn-primary">Atualizar</button>
                     <a th:href="@{/teste/excluir-brinquedo/{id}(id=${brinquedo.id})}" class="btn btn-danger">Excluir</a>
                 </div>
@@ -123,6 +125,114 @@
     </li>
 </ul>
 
+<h2>Minha Lista de Desejos</h2>
+<table id="tabelaDesejos" border="1">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Imagem</th>
+            <th>Preço</th>
+            <th>Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Linhas serão preenchidas via JS -->
+    </tbody>
+</table>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- SCRIPT LISTA DE DESEJOS -->
+<script>
+// Função para adicionar brinquedo à lista de desejos
+function adicionarDesejo(brinquedoId) {
+    // Pega a lista existente ou cria uma nova
+    let listaDesejos = JSON.parse(localStorage.getItem("listaDesejos")) || [];
+
+    // Evita duplicatas
+    if (!listaDesejos.includes(brinquedoId)) {
+        listaDesejos.push(brinquedoId);
+        localStorage.setItem("listaDesejos", JSON.stringify(listaDesejos));
+        alert("Brinquedo adicionado à lista de desejos!");
+        window.location.reload();
+    } else {
+        alert("Este brinquedo já está na sua lista de desejos!");
+    }
+}
+
+// Para exibir a lista de desejos
+async function carregarDesejos() {
+    let listaDesejos = JSON.parse(localStorage.getItem("listaDesejos")) || [];
+    let tbody = document.querySelector("#tabelaDesejos tbody");
+    tbody.innerHTML = ""; // limpa a tabela
+
+    if (listaDesejos.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4">Nenhum item na lista de desejos</td></tr>`;
+        return;
+    }
+
+    // Faz requisição ao back-end para obter dados dos brinquedos
+    let query = listaDesejos.map(id => "ids=" + id).join("&");
+    let response = await fetch("/api/brinquedos/ids?" + query);
+    let brinquedos = await response.json();
+
+    brinquedos.forEach(b => {
+        let row = document.createElement("tr");
+
+     	// Nome
+        let tdNome = document.createElement("td"); 
+
+        // Criar link
+        let link = document.createElement("a");
+        link.href = "/detalhe/" + b.id;  // monta a URL com o ID do brinquedo
+        link.textContent = b.nome;       // texto do link
+        link.style.color = "blue";        // opcional: cor do link
+
+        tdNome.appendChild(link);
+        row.appendChild(tdNome);
+        // Imagem
+        let tdImagem = document.createElement("td");
+        let img = document.createElement("img");
+        img.src = b.imagemPrincipal;
+        img.width = 80;
+        img.height = 80;
+        tdImagem.appendChild(img);
+        row.appendChild(tdImagem);
+
+        // Preço
+        let tdPreco = document.createElement("td");
+        tdPreco.textContent = "R$ " + b.preco.toFixed(2);
+        row.appendChild(tdPreco);
+
+        // Botão Remover
+        let tdAcao = document.createElement("td");
+        let btnRemover = document.createElement("button");
+        btnRemover.textContent = "Remover";
+        btnRemover.classList.add("btn", "btn-danger");
+        btnRemover.onclick = () => removerDesejo(b.id);
+        tdAcao.appendChild(btnRemover); 
+        row.appendChild(tdAcao);
+
+        tbody.appendChild(row);
+    });
+}
+
+// Função para remover brinquedo do localStorage e atualizar tabela
+function removerDesejo(id) {
+    let listaDesejos = JSON.parse(localStorage.getItem("listaDesejos")) || [];
+    listaDesejos = listaDesejos.filter(itemId => itemId !== id);
+    localStorage.setItem("listaDesejos", JSON.stringify(listaDesejos));
+
+    // Atualiza a tabela
+    carregarDesejos();
+}
+
+// Chama a função quando a página carrega
+window.onload = carregarDesejos;
+
+</script>
+
+
+
 </body>
 </html>
