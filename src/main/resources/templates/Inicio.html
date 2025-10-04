@@ -58,17 +58,16 @@
         }
 
         .btn-primary {
-            background-color: #489FB2;
+            background-color: #4CD6BA;
             border: none;
         }
 
         .btn-primary:hover {
-            background-color: #FFD96C;
+            background-color: rgb(145, 232, 232);
         }
 		
 		.footer-navbar {
 		    padding-top: 2px;   /* menor que py-1 */
-		    padding-bottom: 2px;
 		    font-size: 0.8rem;  /* deixa o texto proporcional */
 		    height: 32px;       /* define uma altura fixa (opcional) */
 		  }
@@ -84,8 +83,8 @@
     <main>
 		
 		<div class="container mt-3">
-		   <div class="mt-4 p-4 text-sucess rounded" style="background-color: #489FB2;">
-		    <h1>Seja bem-vindo a nossa loja!</h1> 
+		   <div class="mt-4 p-4 text-sucess rounded" style="background-color: #FFD469;">
+		    <h2>Seja bem-vindo a nossa loja!</h2> 
 		    <p> Salve salve entre ai e compre nossos brinquedos (não tem opção de compra ainda mas é isso fica olhando ai mesmo)</p> 
 		  </div>
 		</div>
@@ -101,7 +100,7 @@
 				<!-- Os brinquedos em destaque vão ser inseridos aqui via JS -->
 			</div>
 		</div>
-		
+    </main>
 		<script>
 		async function carregarDestaques() {
 		    try {
@@ -122,9 +121,9 @@
 				          <img src="${brinquedo.imagemPrincipal}" class="card-img-top" alt="${brinquedo.nome}">
 				          <div class="card-body">
 				             <h5 class="card-title">${brinquedo.nome}</h5>
-				             <p class="card-text">${brinquedo.descricao}</p>
+				             <p class="card-text">${brinquedo.marca}</p>
 				             <span class="preco">R$ ${brinquedo.preco.toFixed(2)}</span>
-				             <a href="/detalhe-produto/${brinquedo.id}" class="btn btn-primary w-100">Ver Detalhes</a>
+							 <a href="/detalhe/${brinquedo.id}" class="btn btn-primary w-100">Ver Detalhes</a>
 				          </div>
 		             </div>
 				   `;
@@ -138,12 +137,14 @@
 				// Carrega quando a página abre
 				window.onload = carregarDestaques;
 				</script>
-
-		<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-bottom footer-navbar">
-			<div class="container-fluid">
+		<div> 
+			<p> </p>
+		</div>
+		<footer class="navbar navbar-expand-sm footer-navbar">
+			<div class="container-fluid" style="background-color: rgb(224, 224, 239);">
 				<span class="navbar-text mx-auto">&copy; 2025 Nome da Loja de Brinquedo. Sobre a equipe.</span>
 			</div>
-		</nav>
+		</footer>
 	
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

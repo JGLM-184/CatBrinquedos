@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    
+    <!-- Fonte Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS custom -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .product-detail-container {
+            display: flex;
+            gap: 40px;
+            padding: 40px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .product-image {
+            flex: 1;
+        }
+        .product-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .product-info {
+            flex: 2;
+        }
+        .product-info h1 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 2.5em;
+        }
+        .product-info .price {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin: 20px 0;
+            display: block;
+        }
+        .product-info .code {
+            color: #6c757d;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+        .product-info .description-section {
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        .product-info .description-section h2 {
+            font-size: 1.5em;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+	<!-- Navbar -->
+	<div th:replace="navbar :: navbar"></div>
+	<main>
+	    <div class="container mt-5">
+	        <div class="row">
+	            <div class="col-md-6">
+	                <img th:src="${brinquedo.imagemPrincipal}" class="img-fluid" th:alt="${brinquedo.nome}">
+	            </div>
+	            <div class="col-md-6">
+	                <h1 th:text="${brinquedo.nome}"></h1>
+	                <p><strong>Marca:</strong> <span th:text="${brinquedo.marca}"></span></p>
+	                <p><strong>Categoria:</strong> <span th:text="${brinquedo.categoria}"></span></p>
+	                <p><strong>Idade Ideal:</strong> <span th:text="${brinquedo.idadeIdeal}"></span></p>
+	                <p><strong>Preço:</strong> R$ <span th:text="${brinquedo.preco}"></span></p>
+	                <div class="mt-3">
+	                    <p th:text="${brinquedo.descricao}"></p>
+	                </div>
+	                <button class="btn btn-primary w-100 mt-3">Adicionar ao Carrinho</button>
+	            </div>
+	        </div>
+	    </div>
+	</main>
+
+    <!-- Footer -->
+	<footer class="navbar navbar-expand-sm fixed-bottom footer-navbar">
+		<div class="container-fluid" style="background-color: rgb(224, 224, 239);">
+			<span class="navbar-text mx-auto">&copy; 2025 Nome da Loja de Brinquedo. Sobre a equipe.</span>
+		</div>
+	</footer>
+			
+	<!-- Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

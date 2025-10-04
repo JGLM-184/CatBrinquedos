@@ -44,6 +44,15 @@ public class BrinquedoControllerWeb {
         return "login";
     }
 
+    
+ // Página de detalhes de um brinquedo específico
+    @GetMapping("/detalhe/{id}")
+    public String detalheBrinquedo(@PathVariable int id, Model model) {
+        Brinquedo brinquedo = brinquedoService.buscarPorId(id); // pega do banco
+        model.addAttribute("brinquedo", brinquedo);
+        return "detalheProduto";
+    }
+    
     // ------------------ PÁGINA TESTE ------------------
     @GetMapping("/teste")
     public String teste(Model model) {

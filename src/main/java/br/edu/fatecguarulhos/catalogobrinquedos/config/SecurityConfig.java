@@ -28,10 +28,10 @@ public class SecurityConfig {
                 .anyRequest().permitAll() // todo o resto está liberado
             )
             .formLogin(form -> form
-                .loginPage("/login.html") // sua página de login (HTML que você já fez)
+                .loginPage("/login") // controller renderiza login.html
                 .loginProcessingUrl("/login") // endpoint que o form envia (action="/login")
-                .defaultSuccessUrl("/index.html", true) // para onde vai se o login der certo
-                .failureUrl("/login.html?error=true") // se der erro, volta para login com erro
+                .defaultSuccessUrl("/index", true) // para onde vai se o login der certo
+                .failureUrl("/login?error=true") // se der erro, volta para login com erro
                 .permitAll()
             )
             .logout(logout -> logout
