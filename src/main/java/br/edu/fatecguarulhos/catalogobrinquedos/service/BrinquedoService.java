@@ -43,11 +43,12 @@ public class BrinquedoService {
 		return brinquedoRepository.findAllById(ids);
 	}
 
-    public List<Brinquedo> buscarPorCategoria(int categoriaId) {
-        Categoria categoria = categoriaRepository.findById(categoriaId)
-                .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
-        return brinquedoRepository.findByCategoria(categoria);
-    }
+	public List<Brinquedo> buscarPorCategoria(int categoriaId) {
+	    Categoria categoria = categoriaRepository.findById(categoriaId)
+	            .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+	    return brinquedoRepository.findByCategoria(categoria);
+	}
+
 
     public List<Brinquedo> buscarPorNome(String nome) {
         return brinquedoRepository.findByNomeContainingIgnoreCase(nome);

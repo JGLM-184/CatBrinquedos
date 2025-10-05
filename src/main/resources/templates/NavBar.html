@@ -38,23 +38,23 @@
             <div class="collapse navbar-collapse" id="mynavbar">
               <ul class="navbar-nav me-auto">
                 <li class="nav-item"><a class="nav-link"th:href="@{/inicio}">Início</a></li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Categorias</a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item " href="#">Veiculos</a></li>
-                    <li><a class="dropdown-item" href="#">Bonecas</a></li>
-                    <li><a class="dropdown-item" href="#">Quebra cabeca</a></li>
-                    <li><a class="dropdown-item" href="#">Educativos</a></li>
-                    <li><a class="dropdown-item" href="#">Jogos</a></li>
-					<li><a class="dropdown-item" href="#">Todos os produtos</a></li>
-                  </ul>
-                </li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/catalogo}">Catálogo</a></li>
+				<li class="nav-item dropdown">
+				  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Categorias</a>
+				  <ul class="dropdown-menu">
+				    <li th:each="categoria : ${listaDeCategorias}">
+				      <a class="dropdown-item" th:href="@{/categoria/{id}(id=${categoria.id})}" th:text="${categoria.nome}"></a>
+				    </li>
+				  </ul>
+				</li>
                 <li class="nav-item"><a class="nav-link" href="javascript:void(0)">Sobre</a></li>
               </ul>
-              <form class="d-flex">
-                <input class="form-control input-pesquisa flex-grow-1" type="text" placeholder="Pesquisar">
-                <button class="btn botao-pesquisa" type="button"><img src="/imagens/Lupa.png"></button>
-              </form>
+			  <form class="d-flex" th:action="@{/buscar}" method="get">
+			      <input class="form-control input-pesquisa flex-grow-1" type="text" name="nome" placeholder="Pesquisar">
+			      <button class="btn botao-pesquisa" type="submit">
+			          <img src="/imagens/Lupa.png">
+			      </button>
+			  </form>
             </div>
           </div>
           <a class="navbar-brand" th:href="@{/login}">Login<img src="/imagens/user.png" style="width:30px;" class="rounded-pill"></a>

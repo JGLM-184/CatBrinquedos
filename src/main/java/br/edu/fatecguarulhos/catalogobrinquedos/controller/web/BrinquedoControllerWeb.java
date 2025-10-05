@@ -28,15 +28,40 @@ public class BrinquedoControllerWeb {
     @Autowired
     private CategoriaService categoriaService;
 
-    // Página inicial
     @GetMapping("/inicio")
     public String inicio(Model model) {
         List<Brinquedo> listaDeBrinquedos = brinquedoService.listarTodos();
-        List<Categoria> listaDeCategorias = categoriaService.listarTodas();
+        List<Categoria> listaDeCategorias = categoriaService.listarTodas(); // ✅ pegar todas as categorias
+        
         model.addAttribute("listaDeBrinquedos", listaDeBrinquedos);
-        model.addAttribute("listaDeCategorias", listaDeCategorias);
+        model.addAttribute("listaDeCategorias", listaDeCategorias); // ✅ enviar para a view
         return "inicio";
     }
+    
+    @GetMapping("/catalogo")
+    public String catalogo(Model model) {
+        List<Brinquedo> listaDeBrinquedos = brinquedoService.listarTodos();
+        List<Categoria> listaDeCategorias = categoriaService.listarTodas();
+
+        model.addAttribute("listaDeBrinquedos", listaDeBrinquedos);
+        model.addAttribute("listaDeCategorias", listaDeCategorias);
+
+        return "catalogo";
+    }
+    
+    @GetMapping("/buscar")
+    public String buscarBrinquedo(@RequestParam("nome") String nome, Model model) {
+        List<Brinquedo> listaDeBrinquedos = brinquedoService.buscarPorNome(nome);
+        List<Categoria> listaDeCategorias = categoriaService.listarTodas();
+
+        model.addAttribute("listaDeBrinquedos", listaDeBrinquedos);
+        model.addAttribute("listaDeCategorias", listaDeCategorias);
+        model.addAttribute("termoBusca", nome);
+
+        return "catalogo";
+    }
+
+
 
     // Login
     @GetMapping("/login")
@@ -52,6 +77,11 @@ public class BrinquedoControllerWeb {
         model.addAttribute("brinquedo", brinquedo);
         return "detalheProduto";
     }
+    
+    
+    
+  
+
     
     // ------------------ PÁGINA TESTE ------------------
     @GetMapping("/teste")
