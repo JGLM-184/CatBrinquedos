@@ -61,12 +61,15 @@ public class BrinquedoControllerWeb {
         return "catalogo";
     }
 
-
-
-    // Login
     @GetMapping("/login")
     public String login() {
         return "login";
+    }
+    
+ // Login
+    @GetMapping("/sobre")
+    public String sobre() {
+        return "sobre";
     }
 
     
