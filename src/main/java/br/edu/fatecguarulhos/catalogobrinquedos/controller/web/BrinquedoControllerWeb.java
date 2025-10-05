@@ -66,7 +66,6 @@ public class BrinquedoControllerWeb {
         return "login";
     }
     
- // Login
     @GetMapping("/sobre")
     public String sobre() {
         return "sobre";
