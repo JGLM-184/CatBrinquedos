@@ -21,7 +21,7 @@
         }
 
         main {
-            margin-top: 150px; /* Espaço para navbar fixa */
+            margin-top: 100px; /* Espaço para navbar fixa */
         }
 
         .catalogo-container h1 {
@@ -75,6 +75,13 @@
             font-size: 0.8rem;
             height: 32px;
         }
+		
+		body { 
+			background-image: url("/imagens/fundo5.png");
+			background-size: fill;
+			background-position: right left;
+		}
+		
     </style>
 </head>
 <body>
@@ -83,11 +90,11 @@
     <div th:replace="~{navbar :: navbar}"></div>
 
     <!-- Conteúdo principal -->
-    <main>
+    <main >
         <div class="container mt-3">
             <div class="mt-4 p-4 text-sucess rounded" style="background-color: #FFD469;">
-                <h2>Seja bem-vindo a nossa loja!</h2> 
-                <p>Salve salve, entre aí e confira nossos brinquedos!</p> 
+                <h2>Boas vindas a nossa loja!</h2> 
+                <p>Explore nosso catálogo de brinquedos em nossa vitrine virtual! Esperamos que encontre algo que goste Meow!!\(*- *\</p> 
             </div>
         </div>
 
@@ -102,7 +109,7 @@
                         <div class="card-body">
                             <h5 class="card-title" th:text="${brinquedo.nome}"></h5>
                             <p class="card-text" th:text="${brinquedo.marca}"></p>
-                            <span class="preco" th:text="${#numbers.formatDecimal(brinquedo.preco,1,'POINT',2,'NONE')}"></span>
+							<span class="preco" th:text="'R$ ' + ${#numbers.formatDecimal(brinquedo.preco, 2, 'COMMA', 2, 'POINT')}"></span>
                             <a th:href="@{/detalhe/{id}(id=${brinquedo.id})}" class="btn btn-primary w-100">Ver Detalhes</a>
                         </div>
                     </div>

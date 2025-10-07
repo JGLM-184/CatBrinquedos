@@ -14,7 +14,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
         .authorizeHttpRequests(auth -> auth
-        	    .requestMatchers("/", "/inicio", "/catalogo", "/detalhe/**", "/sobre", "/categoria/**", "/imagens/**", "/css/**", "/js/**").permitAll()
+        	    .requestMatchers("/", "/inicio", "/detalhe/**", "/catalogo", "/buscar", "/sobre", "/categoria/**", "/imagens/**", "/css/**", "/js/**").permitAll()
         	    .requestMatchers("/usuarios/painel").authenticated()
         	    .requestMatchers("/usuarios/**").hasRole("ADMIN")
         	    .requestMatchers("/admin/brinquedos/**").authenticated() // qualquer usuário logado pode CRUD
