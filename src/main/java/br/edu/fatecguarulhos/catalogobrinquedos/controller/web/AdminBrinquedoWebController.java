@@ -26,7 +26,7 @@ public class AdminBrinquedoWebController {
     // ------------------- LISTAR -------------------
     @GetMapping
     public String listarBrinquedos(Model model) {
-        List<Brinquedo> lista = brinquedoService.listarTodos();
+        List<Brinquedo> lista = brinquedoService.listarTodosAlfabetico();
         model.addAttribute("listaDeBrinquedos", lista);
         return "painelBrinquedo";
     }

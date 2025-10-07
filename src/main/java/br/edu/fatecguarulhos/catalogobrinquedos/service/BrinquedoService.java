@@ -34,6 +34,10 @@ public class BrinquedoService {
         return brinquedoRepository.findAll();
     }
     
+    public List<Brinquedo> listarTodosAlfabetico() {
+        return brinquedoRepository.findAllByOrderByNomeAsc();
+    }
+    
     public Brinquedo buscarPorId(int id) {
         return brinquedoRepository.findById(id)
         		.orElseThrow(() -> new RuntimeException("Brinquedo não encontrado com id: " + id));

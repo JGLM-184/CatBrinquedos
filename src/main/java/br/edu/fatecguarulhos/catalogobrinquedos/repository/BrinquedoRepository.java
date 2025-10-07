@@ -16,4 +16,6 @@ public interface BrinquedoRepository extends JpaRepository<Brinquedo, Integer>{
 
     List<Brinquedo> findByPrecoBetween(double min, double max);
 
+	List<Brinquedo> findAllByOrderByNomeAsc();
+
 }

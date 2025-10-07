@@ -62,20 +62,13 @@
 
                 <!-- Login / Painel / Logout -->
                 <ul class="navbar-nav">
-                    <!-- Se o usuário não estiver logado -->
-                    <li class="nav-item" th:if="${#authentication == null or !#authorization.expression('isAuthenticated()')}">
-                        <a class="nav-link" th:href="@{/usuarios/login}">Login
-                            <img src="/imagens/user.png" class="user-icon rounded-pill">
-                        </a>
-                    </li>
-
                     <!-- Se o usuário estiver logado -->
                     <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
                         <a class="nav-link" th:href="@{/usuarios/painel}">Painel</a>
                     </li>
                     <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
                         <form th:action="@{/logout}" method="post" class="d-inline">
-                            <button class="btn btn-link nav-link" type="submit">Logout</button>
+                            <button class="btn btn-link nav-link" type="submit" onclick="return confirm('Tem certeza que deseja sair da sua conta?')">Logout</button>
                         </form>
                     </li>
                 </ul>

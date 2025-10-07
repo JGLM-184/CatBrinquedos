@@ -1,5 +1,9 @@
 package br.edu.fatecguarulhos.catalogobrinquedos.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +26,7 @@ public class CategoriaService {
 
     //-------------------- CONSULTAS --------------------
     public List<Categoria> listarTodas() {
-        return categoriaRepository.findAll();
+        return categoriaRepository.findAllByOrderByNomeAsc();
     }
 
     public Optional<Categoria> buscarPorId(int id) {
@@ -51,20 +55,30 @@ public class CategoriaService {
     }
 
     public void excluir(int id) {
-    	Optional<Categoria> categoriaOpt = categoriaRepository.findById(id);
-       
-    	if (categoriaOpt.isPresent()) {
+        Optional<Categoria> categoriaOpt = categoriaRepository.findById(id);
+
+        if (categoriaOpt.isPresent()) {
             Categoria categoria = categoriaOpt.get();
 
-            // Verifica se existem brinquedos associados
+            // Busca todos os brinquedos associados à categoria
             List<Brinquedo> brinquedos = brinquedoRepository.findByCategoria(categoria);
+
+            // Exclui todos os brinquedos associados
             if (!brinquedos.isEmpty()) {
-                throw new RuntimeException("Não é possível excluir a categoria. " +
-                                           "Existem brinquedos associados a ela. " +
-                                           "Exclua os brinquedos antes de remover a categoria.\n");
+            	for (Brinquedo brinquedo : brinquedos) {
+	            	if (brinquedo.getImagemPrincipal() != null) {
+	                    try {
+	                        Path caminhoImagem = Paths.get("src/main/resources/static" + brinquedo.getImagemPrincipal());
+	                        Files.deleteIfExists(caminhoImagem);
+	                    } catch (IOException e) {
+	                        System.err.println("Não foi possível excluir a imagem: " + e.getMessage());
+	                    }
+	            	}
+                }
+                brinquedoRepository.deleteAll(brinquedos);
             }
 
-            // Se não houver brinquedos, pode excluir
+            // Agora exclui a categoria
             categoriaRepository.deleteById(id);
         } else {
             throw new RuntimeException("Categoria não encontrada.");
