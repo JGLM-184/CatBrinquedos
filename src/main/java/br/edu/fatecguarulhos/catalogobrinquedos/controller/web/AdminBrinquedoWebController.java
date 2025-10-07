@@ -67,11 +67,12 @@ public class AdminBrinquedoWebController {
     public String atualizarBrinquedo(@PathVariable int id,
                                      @ModelAttribute BrinquedoDTO dto,
                                      @RequestParam(value = "file", required = false) MultipartFile file) {
-        if (file != null && !file.isEmpty()) {
+    	brinquedoService.atualizar(id, dto);
+        
+    	if (!file.isEmpty()) {
             brinquedoService.atualizarImagem(id, dto, file);
-        } else {
-            brinquedoService.atualizar(id, dto);
-        }
+        } 
+        
         return "redirect:/admin/brinquedos";
     }
 
