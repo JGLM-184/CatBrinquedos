@@ -12,7 +12,7 @@ import br.edu.fatecguarulhos.catalogobrinquedos.service.BrinquedoService;
 import br.edu.fatecguarulhos.catalogobrinquedos.service.CategoriaService;
 
 @Controller
-public class CategoriaControllerWeb {
+public class CategoriaWebController {
 
     @Autowired
     private CategoriaService categoriaService;

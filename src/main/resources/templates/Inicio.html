@@ -21,7 +21,7 @@
         }
 
         main {
-            margin-top: 100px; /* Espaço para navbar fixa */
+            margin-top: 150px; /* Espaço para navbar fixa */
         }
 
         .catalogo-container h1 {
@@ -40,18 +40,18 @@
             transform: translateY(-5px);
         }
 
-		.card-img-top {
-			width: 100%;      /* ocupa toda a largura do card */
-			height: 220px;    /* altura fixa */
-			object-fit: fill; /* força a imagem a preencher o espaço (pode deformar) */
-		}
+        .card-img-top {
+            width: 100%;
+            height: 220px;
+            object-fit: fill;
+        }
 
         .card-body h5 {
-			font-size: 1rem;
-			font-weight: 600;
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
+            font-size: 1rem;
+            font-weight: 600;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
 
         .card-body .preco {
@@ -69,87 +69,55 @@
         .btn-primary:hover {
             background-color: rgb(145, 232, 232);
         }
-		
-		.footer-navbar {
-		    padding-top: 2cm;   /* menor que py-1 */
-		    font-size: 0.8rem;  /* deixa o texto proporcional */
-		    height: 32px;       /* define uma altura fixa (opcional) */
-		  }
 
+        .footer-navbar {
+            padding-top: 2cm;
+            font-size: 0.8rem;
+            height: 32px;
+        }
     </style>
 </head>
 <body>
 
     <!-- Navbar -->
-    <div th:replace="navbar :: navbar"></div>
+    <div th:replace="~{navbar :: navbar}"></div>
 
     <!-- Conteúdo principal -->
     <main>
-		
-		<div class="container mt-3">
-		   <div class="mt-4 p-4 text-sucess rounded" style="background-color: #FFD469;">
-		    <h2>Seja bem-vindo a nossa loja!</h2> 
-		    <p> Salve salve entre ai e compre nossos brinquedos (não tem opção de compra ainda mas é isso fica olhando ai mesmo)</p> 
-		  </div>
-		</div>
-		
-		<div> 
-			<p> </p>
-		</div>
-		
+        <div class="container mt-3">
+            <div class="mt-4 p-4 text-sucess rounded" style="background-color: #FFD469;">
+                <h2>Seja bem-vindo a nossa loja!</h2> 
+                <p>Salve salve, entre aí e confira nossos brinquedos!</p> 
+            </div>
+        </div>
+
         <div class="container catalogo-container">
             <h1>Brinquedos em Destaque</h1>
 
-            <div class="row g-4" id="destaques-container">
-				<!-- Os brinquedos em destaque vão ser inseridos aqui via JS -->
-			</div>
-		</div>
+            <div class="row g-4">
+                <!-- Itera sobre a lista de brinquedos do Model -->
+                <div class="col-md-4" th:each="brinquedo : ${listaDeBrinquedos}" th:if="${brinquedo.destaque}">
+                    <div class="card">
+                        <img th:src="@{${brinquedo.imagemPrincipal}}" class="card-img-top" th:alt="${brinquedo.nome}">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${brinquedo.nome}"></h5>
+                            <p class="card-text" th:text="${brinquedo.marca}"></p>
+                            <span class="preco" th:text="${#numbers.formatDecimal(brinquedo.preco,1,'POINT',2,'NONE')}"></span>
+                            <a th:href="@{/detalhe/{id}(id=${brinquedo.id})}" class="btn btn-primary w-100">Ver Detalhes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
-		<script>
-		async function carregarDestaques() {
-		    try {
-		        // Busca todos os brinquedos do backend
-		        const resposta = await fetch('/api/brinquedos');
-		        const brinquedos = await resposta.json();
 
-		        const container = document.getElementById('destaques-container');
-				
-				// Filtra apenas os destaques
-				const destaques = brinquedos.filter(b => b.destaque);
-				
-				destaques.forEach(brinquedo => {
-				     const card = document.createElement('div');
-				     card.className = "col-md-4";
-				     card.innerHTML = `
-				          <div class="card">
-				          <img src="${brinquedo.imagemPrincipal}" class="card-img-top" alt="${brinquedo.nome}">
-				          <div class="card-body">
-				             <h5 class="card-title">${brinquedo.nome}</h5>
-				             <p class="card-text">${brinquedo.marca}</p>
-				             <span class="preco">R$ ${brinquedo.preco.toFixed(2)}</span>
-							 <a href="/detalhe/${brinquedo.id}" class="btn btn-primary w-100">Ver Detalhes</a>
-				          </div>
-		             </div>
-				   `;
-					container.appendChild(card);
-							        });
-					} catch (error) {
-						console.error('Erro ao carregar brinquedos em destaque:', error);
-						}
-				}
-				
-				// Carrega quando a página abre
-				window.onload = carregarDestaques;
-				</script>
-		<div> 
-			<p> </p>
-		</div>
-		<footer class="navbar navbar-expand-sm footer-navbar">
-			<div class="container-fluid" style="background-color: rgb(224, 224, 239);">
-				<span class="navbar-text mx-auto">&copy; 2025 Cat Brinquedos. Todos os direitos reservados.</span>
-			</div>
-		</footer>
-	
+    <!-- Footer -->
+    <footer class="navbar navbar-expand-sm footer-navbar">
+        <div class="container-fluid" style="background-color: rgb(224, 224, 239);">
+            <span class="navbar-text mx-auto">&copy; 2025 Cat Brinquedos. Todos os direitos reservados.</span>
+        </div>
+    </footer>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

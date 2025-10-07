@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Administração de Brinquedos - Cat Brinquedos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        main { margin-top: 90px; padding: 20px; }
+    </style>
+</head>
+<body>
+    <!-- navbar fragment -->
+    <div th:replace="~{navbar :: navbar}"></div>
+
+    <main class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Administração de Brinquedos</h1>
+            <a class="btn btn-primary" th:href="@{/admin/brinquedos/criar-brinquedo}">Criar novo brinquedo</a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Id</th>
+                        <th>Nome</th>
+                        <th>Marca</th>
+                        <th>Categoria</th>
+                        <th>Preço</th>
+                        <th>Destaque</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="b : ${listaDeBrinquedos}">
+                        <td th:text="${b.id}">1</td>
+                        <td th:text="${b.nome}">Nome</td>
+                        <td th:text="${b.marca}">Marca</td>
+                        <td th:text="${b.categoria.nome}">Categoria</td>
+                        <td th:text="${b.preco}">Preço</td>
+                        <td>
+                            <span th:if="${b.destaque}" class="badge bg-success">SIM</span>
+                            <span th:if="${!b.destaque}" class="badge bg-secondary">NÃO</span>
+                        </td>
+                        <td>
+                            <a class="btn btn-sm btn-outline-secondary"
+                               th:href="@{'/admin/brinquedos/editar-brinquedo/' + ${b.id}}">Editar</a>
+                            <a class="btn btn-sm btn-outline-danger"
+                               th:href="@{'/admin/brinquedos/excluir-brinquedo/' + ${b.id}}"
+                               onclick="return confirm('Tem certeza que deseja excluir este brinquedo?')">Excluir</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer class="navbar navbar-expand-sm fixed-bottom footer-navbar">
+        <div class="container-fluid" style="background-color: rgb(224, 224, 239);">
+            <span class="navbar-text mx-auto">&copy; 2025 Cat Brinquedos. Todos os direitos reservados.</span>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

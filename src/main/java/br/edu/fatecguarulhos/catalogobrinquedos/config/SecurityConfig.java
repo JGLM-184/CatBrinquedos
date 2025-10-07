@@ -1,47 +1,45 @@
 package br.edu.fatecguarulhos.catalogobrinquedos.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
 
-    @Autowired
-    private CustomUserDetailsService customUserDetailsService;
-
-    // Bean do encoder, usado para comparar senha criptografada
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable()) // desabilita CSRF para testes (depois pode reativar)
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/usuarios/**").hasRole("ADMIN") // só admin acessa
-                .anyRequest().permitAll() // todo o resto está liberado
-            )
+        .authorizeHttpRequests(auth -> auth
+        	    .requestMatchers("/", "/inicio", "/catalogo", "/detalhe/**", "/sobre", "/categoria/**", "/imagens/**", "/css/**", "/js/**").permitAll()
+        	    .requestMatchers("/usuarios/painel").authenticated()
+        	    .requestMatchers("/usuarios/**").hasRole("ADMIN")
+        	    .requestMatchers("/admin/brinquedos/**").authenticated() // qualquer usuário logado pode CRUD
+        	    .anyRequest().authenticated()
+        	)
+
             .formLogin(form -> form
-                .loginPage("/login") // controller renderiza login.html
-                .loginProcessingUrl("/login") // endpoint que o form envia (action="/login")
-                .defaultSuccessUrl("/index", true) // para onde vai se o login der certo
-                .failureUrl("/login?error=true") // se der erro, volta para login com erro
+                .loginPage("/usuarios/login")
+                .defaultSuccessUrl("/usuarios/painel", true)
                 .permitAll()
             )
             .logout(logout -> logout
-                .logoutUrl("/logout") // URL do logout
-                .logoutSuccessUrl("/index") // redireciona depois de sair
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/inicio")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
                 .permitAll()
             )
-            .userDetailsService(customUserDetailsService);
+            .csrf(csrf -> csrf.disable());
 
         return http.build();
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }

@@ -3,63 +3,85 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <style>
-		.botao-pesquisa {
-		    background-color: #489FB2; 
-		    color: white;              
-		    border: none;   
-			padding: 3px 10px; /* reduz a altura do botão */
-			font-size: 0.9rem; /* deixa o texto proporcional */           
-		}
+        .botao-pesquisa {
+            background-color: #489FB2; 
+            color: white;              
+            border: none;   
+            padding: 3px 10px; 
+            font-size: 0.9rem;             
+        }
 
         .botao-pesquisa:hover {
             background-color: #357b91; 
         }
 
-		.input-pesquisa {
-		    width: 10px;      
-		    height: 30px;      
-		}
+        .input-pesquisa {
+            width: 10px;      
+            height: 30px;      
+        }
 
-		/* Cor quando passa o mouse por cima */
-		.nav-link.dropdown-toggle:hover {
-		    color: #73B96E;
-		}
+        .nav-link.dropdown-toggle:hover {
+            color: #73B96E;
+        }
 
+        .user-icon {
+            width: 30px;
+        }
     </style>
 </head>
 <body>
-    <div th:fragment="navbar">
-        <nav class="navbar navbar-expand-sm fixed-top" style="background-color: #8AA7F0;">
-          <div class="container">
-            <a class="navbar-brand" href="javascript:void(0)">Cat Brinquedos</a>
+<div th:fragment="navbar">
+    <nav class="navbar navbar-expand-sm fixed-top" style="background-color: #8AA7F0;">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/inicio}">Cat Brinquedos</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-              <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="mynavbar">
-              <ul class="navbar-nav me-auto">
-                <li class="nav-item"><a class="nav-link"th:href="@{/inicio}">Início</a></li>
-				<li class="nav-item"><a class="nav-link" th:href="@{/catalogo}">Catálogo</a></li>
-				<li class="nav-item dropdown">
-				  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Categorias</a>
-				  <ul class="dropdown-menu">
-				    <li th:each="categoria : ${listaDeCategorias}">
-				      <a class="dropdown-item" th:href="@{/categoria/{id}(id=${categoria.id})}" th:text="${categoria.nome}"></a>
-				    </li>
-				  </ul>
-				</li>
-				<li class="nav-item"><a class="nav-link"th:href="@{/sobre}">Sobre</a></li>
-              </ul>
-			  <form class="d-flex" th:action="@{/buscar}" method="get">
-			      <input class="form-control input-pesquisa flex-grow-1" type="text" name="nome" placeholder="Pesquisar">
-			      <button class="btn botao-pesquisa" type="submit">
-			          <img src="/imagens/Lupa.png">
-			      </button>
-			  </form>
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/inicio}">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/catalogo}">Catálogo</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Categorias</a>
+                        <ul class="dropdown-menu">
+                            <li th:each="categoria : ${listaDeCategorias}">
+                                <a class="dropdown-item" th:href="@{/categoria/{id}(id=${categoria.id})}" th:text="${categoria.nome}"></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/sobre}">Sobre</a></li>
+                </ul>
+
+                <!-- Pesquisa -->
+                <form class="d-flex me-3" th:action="@{/buscar}" method="get">
+                    <input class="form-control input-pesquisa flex-grow-1" type="text" name="nome" placeholder="Pesquisar">
+                    <button class="btn botao-pesquisa" type="submit">
+                        <img src="/imagens/Lupa.png">
+                    </button>
+                </form>
+
+                <!-- Login / Painel / Logout -->
+                <ul class="navbar-nav">
+                    <!-- Se o usuário não estiver logado -->
+                    <li class="nav-item" th:if="${#authentication == null or !#authorization.expression('isAuthenticated()')}">
+                        <a class="nav-link" th:href="@{/usuarios/login}">Login
+                            <img src="/imagens/user.png" class="user-icon rounded-pill">
+                        </a>
+                    </li>
+
+                    <!-- Se o usuário estiver logado -->
+                    <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
+                        <a class="nav-link" th:href="@{/usuarios/painel}">Painel</a>
+                    </li>
+                    <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
+                        <form th:action="@{/logout}" method="post" class="d-inline">
+                            <button class="btn btn-link nav-link" type="submit">Logout</button>
+                        </form>
+                    </li>
+                </ul>
             </div>
-          </div>
-          <a class="navbar-brand" th:href="@{/login}">Login<img src="/imagens/user.png" style="width:30px;" class="rounded-pill"></a>
-        </nav>
-    </div>
-	
+        </div>
+    </nav>
+</div>
 </body>
 </html>

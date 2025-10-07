@@ -33,6 +33,15 @@ public class UsuarioService {
     }
 
     public Usuario salvar(UsuarioDTO dto) {
+        // validações
+        if (usuarioRepository.findByUsername(dto.getUsername()).isPresent()) {
+            throw new RuntimeException("Nome de usuário já existe.");
+        }
+        if (usuarioRepository.findAll().stream()
+                .anyMatch(u -> u.getNome().equalsIgnoreCase(dto.getNome()))) {
+            throw new RuntimeException("Nome completo já existe.");
+        }
+
         Usuario usuario = new Usuario();
         usuario.setNome(dto.getNome());
         usuario.setUsername(dto.getUsername());
@@ -46,11 +55,37 @@ public class UsuarioService {
         Optional<Usuario> usuarioOpt = usuarioRepository.findById(id);
         if (usuarioOpt.isPresent()) {
             Usuario usuario = usuarioOpt.get();
+
+            // não permitir salvar sem alterações
+            boolean semAlteracao = usuario.getNome().equalsIgnoreCase(dto.getNome())
+                    && usuario.getUsername().equalsIgnoreCase(dto.getUsername())
+                    && dto.getSenha().isBlank()
+                    && usuario.isAdmin() == dto.isAdmin();
+            if (semAlteracao) {
+                throw new RuntimeException("Nenhuma alteração foi realizada.");
+            }
+
+            // verificar duplicidade de nome/username
+            if (usuarioRepository.findAll().stream()
+                    .anyMatch(u -> u.getId() != usuario.getId()
+                            && u.getNome().equalsIgnoreCase(dto.getNome()))) {
+                throw new RuntimeException("Nome completo já existe.");
+            }
+            if (usuarioRepository.findAll().stream()
+                    .anyMatch(u -> u.getId() != usuario.getId()
+                            && u.getUsername().equalsIgnoreCase(dto.getUsername()))) {
+                throw new RuntimeException("Nome de usuário já existe.");
+            }
+
             usuario.setNome(dto.getNome());
             usuario.setUsername(dto.getUsername());
             usuario.setAdmin(dto.isAdmin());
 
+            // senha só muda se for diferente
             if (dto.getSenha() != null && !dto.getSenha().isBlank()) {
+                if (passwordEncoder.matches(dto.getSenha(), usuario.getSenha())) {
+                    throw new RuntimeException("A nova senha não pode ser igual à anterior.");
+                }
                 usuario.setSenha(passwordEncoder.encode(dto.getSenha()));
             }
 

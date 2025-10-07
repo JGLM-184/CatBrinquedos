@@ -11,3 +11,4 @@ INSERT INTO brinquedo (nome, marca, categoria_id, descricao, idade_ideal, imagem
 INSERT INTO brinquedo (nome, marca, categoria_id, descricao, idade_ideal, imagem_principal, preco, destaque) VALUES ('Futebol de Botão', 'SportsFun', 5,  'Não curto muito','7+', '/imagens/brinquedos/Futebol de Botão.jpg', 39.90, true);
 
 INSERT INTO usuario (nome, username, senha, admin) VALUES ('Administrador', 'teste', '$2a$10$PGbBlRRc2YfnzSOXvh6PKe5GHzlJkY6UP2.LrPrv8suAmFfYykxdq', true)
+INSERT INTO usuario (nome, username, senha, admin) VALUES ('Gabriel', 'gabriel', '$2a$10$PGbBlRRc2YfnzSOXvh6PKe5GHzlJkY6UP2.LrPrv8suAmFfYykxdq', false)
