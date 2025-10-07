@@ -60,10 +60,10 @@ public class CategoriaService {
         if (categoriaOpt.isPresent()) {
             Categoria categoria = categoriaOpt.get();
 
-            // Busca todos os brinquedos associados à categoria
+            // BUSCA TODOS OS BRINQUEDOS ASSOCIADOS À CATEGORIA
             List<Brinquedo> brinquedos = brinquedoRepository.findByCategoria(categoria);
 
-            // Exclui todos os brinquedos associados
+            //EXCLUI TODOS OS BRINQUEDOS ASSOCIADOS
             if (!brinquedos.isEmpty()) {
             	for (Brinquedo brinquedo : brinquedos) {
 	            	if (brinquedo.getImagemPrincipal() != null) {
@@ -78,7 +78,7 @@ public class CategoriaService {
                 brinquedoRepository.deleteAll(brinquedos);
             }
 
-            // Agora exclui a categoria
+            //POR FIM EXCLUI A CATEGORIA
             categoriaRepository.deleteById(id);
         } else {
             throw new RuntimeException("Categoria não encontrada.");

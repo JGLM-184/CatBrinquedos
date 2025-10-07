@@ -20,6 +20,8 @@ public class BrinquedoWebController {
     private CategoriaService categoriaService;
 
     // ------------------- ROTAS PÚBLICAS -------------------
+    
+    //TELA INICIAL
     @GetMapping("/inicio")
     public String inicio(Model model) {
         model.addAttribute("listaDeBrinquedos", brinquedoService.listarTodos());
@@ -27,6 +29,7 @@ public class BrinquedoWebController {
         return "inicio";
     }
 
+    //TELA DO CATÁLOGO COM TODOS OS BRINQUEDOS
     @GetMapping("/catalogo")
     public String catalogo(Model model) {
         model.addAttribute("listaDeBrinquedos", brinquedoService.listarTodos());
@@ -34,6 +37,8 @@ public class BrinquedoWebController {
         return "catalogo";
     }
 
+    //PESQUISAR NOME DE BRINQUEDO
+    //USA A TELA DO CATÁLOGO MAS COM FILTRO DA PESQUISA
     @GetMapping("/buscar")
     public String buscarBrinquedo(@RequestParam("nome") String nome, Model model) {
         model.addAttribute("listaDeBrinquedos", brinquedoService.buscarPorNome(nome));
@@ -42,6 +47,7 @@ public class BrinquedoWebController {
         return "catalogo";
     }
 
+    //TELA COM DETALHE DE UM BRINQUEDO
     @GetMapping("/detalhe/{id}")
     public String detalheBrinquedo(@PathVariable int id, Model model) {
         Brinquedo brinquedo = brinquedoService.buscarPorId(id);
@@ -49,6 +55,7 @@ public class BrinquedoWebController {
         return "detalheProduto";
     }
     
+    //TELA COM OS MEMBROS DA EQUIPE
     @GetMapping("/sobre")
     public String sobre() {
      

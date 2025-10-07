@@ -9,7 +9,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Mapeia a URL /imagens/brinquedos/** para a pasta do projeto
+    	//MAPEIA A URL /IMAGENS/BRINQUEDOS/** PARA A PASTA DO PROJETO
         registry.addResourceHandler("/imagens/brinquedos/**")
                 .addResourceLocations("file:src/main/resources/static/imagens/brinquedos/");
     }

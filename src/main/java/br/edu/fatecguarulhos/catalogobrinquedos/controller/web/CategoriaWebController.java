@@ -20,12 +20,13 @@ public class CategoriaWebController {
     @Autowired
     private BrinquedoService brinquedoService;
 
+    //TELA COM O FILTRO DE CATEGORIA APLICADA
     @GetMapping("/categoria/{id}")
     public String exibirCategoria(@PathVariable int id, Model model) {
         Categoria categoria = categoriaService.buscarPorId(id)
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
 
-        List<Brinquedo> brinquedos = brinquedoService.buscarPorCategoria(categoria.getId()); // ✅ passa o ID
+        List<Brinquedo> brinquedos = brinquedoService.buscarPorCategoria(categoria.getId());
 
         model.addAttribute("categoria", categoria);
         model.addAttribute("brinquedos", brinquedos);

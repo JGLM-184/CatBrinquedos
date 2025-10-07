@@ -81,7 +81,7 @@ public class BrinquedoService {
         return brinquedoRepository.save(brinquedo);
     }
 
-    // Sobrecarga do método salvar para incluir também a imagem
+    // SOBRECARGA DO MÉTODO SALVAR PARA INCLUIR TAMBÉM A IMAGEM
     public Brinquedo salvar(BrinquedoDTO dto, MultipartFile file) {
         Categoria categoria = categoriaRepository.findById(dto.getCategoria().getId())
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
@@ -99,7 +99,7 @@ public class BrinquedoService {
         return brinquedoRepository.save(brinquedo);
     }
 
-    // Salva imagem no diretório
+    //SALVA IMAGEM NO DIRETÓRIO
     public String salvarImagem(String nomeImagem, MultipartFile file) {
         try {
             String antigoNomeImagem = file.getOriginalFilename();

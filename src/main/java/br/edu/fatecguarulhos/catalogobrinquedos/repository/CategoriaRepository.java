@@ -8,7 +8,6 @@ import br.edu.fatecguarulhos.catalogobrinquedos.model.entity.Categoria;
 
 public interface CategoriaRepository extends JpaRepository<Categoria, Integer> {
 
-    // Buscar categoria pelo nome
     Categoria findByNome(String nomeCategoria);
     
     // Procura por 'nome' e ordena por 'nome' em ordem crescente (alfabética)

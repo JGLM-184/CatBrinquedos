@@ -19,11 +19,13 @@ public class UsuarioWebController {
     @Autowired
     private UsuarioService usuarioService;
     
+    //TELA DE LOGIN
     @GetMapping("/login")
     public String login() {
         return "login";
     }
     
+    //AO FAZER LOGIN CHAMA A TELA DE PAINEL
     @GetMapping("/painel")
     public String painel(Model model, Authentication auth) {
         boolean isAdmin = auth.getAuthorities().stream()
@@ -33,18 +35,21 @@ public class UsuarioWebController {
         return "painel";
     }
 
+    //LISTA OS USUÁRIOS
     @GetMapping("/lista")
     public String listarUsuarios(Model model) {
         model.addAttribute("usuarios", usuarioService.listarTodos());
         return "painelUsuario"; 
     }
 
+    //USA O USUARIOFORM.HTML PARA CRIAR NOVO, VEM VAZIO
     @GetMapping("/novo")
     public String novoUsuario(Model model) {
         model.addAttribute("usuarioDto", new UsuarioDTO());
         return "UsuarioForm";
     }
 
+    //USA O USUARIOFORM.HTML PARA EDITAR, VEM PREENCHIDO
     @GetMapping("/editar/{id}")
     public String editarUsuario(@PathVariable int id, Model model) {
         Optional<Usuario> opt = usuarioService.buscarPorId(id);
@@ -61,7 +66,8 @@ public class UsuarioWebController {
         }
         return "redirect:/usuarios/lista";
     }
-
+    
+    //SALVA E RETORNA À LISTA, SE DER ERRADO CONTINUA NO FORM E MOSTRA ERRO
     @PostMapping("/salvar")
     public String salvarUsuario(@ModelAttribute UsuarioDTO usuarioDto,
                                 @RequestParam(required=false) Integer id,
@@ -81,6 +87,7 @@ public class UsuarioWebController {
         }
     }
 
+    //EXCLUI E RETORNA À LISTA
     @GetMapping("/excluir/{id}")
     public String excluirUsuario(@PathVariable int id) {
         usuarioService.excluir(id);

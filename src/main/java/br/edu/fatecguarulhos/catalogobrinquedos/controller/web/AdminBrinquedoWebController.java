@@ -36,7 +36,7 @@ public class AdminBrinquedoWebController {
     public String novoBrinquedo(Model model) {
         model.addAttribute("brinquedoDTO", new BrinquedoDTO());
         model.addAttribute("listaDeCategorias", categoriaService.listarTodas());
-        model.addAttribute("isEdicao", false); // flag para o formulário
+        model.addAttribute("isEdicao", false);
         return "brinquedoForm";
     }
 
@@ -55,7 +55,7 @@ public class AdminBrinquedoWebController {
     @GetMapping("/editar-brinquedo/{id}")
     public String editarBrinquedo(@PathVariable int id, Model model) {
         Brinquedo brinquedo = brinquedoService.buscarPorId(id);
-        BrinquedoDTO dto = new BrinquedoDTO(brinquedo); // já preenche o ID
+        BrinquedoDTO dto = new BrinquedoDTO(brinquedo);
         model.addAttribute("brinquedoDTO", dto);
         model.addAttribute("listaDeCategorias", categoriaService.listarTodas());
         model.addAttribute("isEdicao", true);

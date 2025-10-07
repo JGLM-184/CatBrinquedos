@@ -10,10 +10,10 @@ import br.edu.fatecguarulhos.catalogobrinquedos.model.entity.Categoria;
 
 public interface BrinquedoRepository extends JpaRepository<Brinquedo, Integer>{
 	
+	public List<Brinquedo> findByNomeContainingIgnoreCase(String nome);
+	
 	List<Brinquedo> findByCategoria(Categoria categoria);
 	
-	public List<Brinquedo> findByNomeContainingIgnoreCase(String nome);
-
     List<Brinquedo> findByPrecoBetween(double min, double max);
 
 	List<Brinquedo> findAllByOrderByNomeAsc();

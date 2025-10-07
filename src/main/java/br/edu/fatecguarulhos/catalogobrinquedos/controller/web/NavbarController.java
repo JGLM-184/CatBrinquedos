@@ -13,7 +13,6 @@ public class NavbarController {
     @Autowired
     private CategoriaService categoriaService;
 
-    // Esse método é chamado automaticamente antes de qualquer página que use a navbar
     @ModelAttribute("listaCategorias")
     public List<Categoria> populateCategorias() {
         return categoriaService.listarTodas();

@@ -17,8 +17,12 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    //INSTANCIA A CLASSE DO SPRING SECURITY PAR CRIPTOGRAFAR
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    
+    //----------------------- CONSULTAS -----------------------
+    
     public Usuario buscarPorUsername(String username) {
         return usuarioRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
@@ -32,8 +36,12 @@ public class UsuarioService {
         return usuarioRepository.findById(id);
     }
 
+    
+    //----------------------- CRUD -----------------------
+    
     public Usuario salvar(UsuarioDTO dto) {
-        // validações
+        
+    	//VALIDAÇÕES
         if (usuarioRepository.findByUsername(dto.getUsername()).isPresent()) {
             throw new RuntimeException("Nome de usuário já existe.");
         }
@@ -42,11 +50,12 @@ public class UsuarioService {
             throw new RuntimeException("Nome completo já existe.");
         }
 
+        //CRIANDO A ENTIDADE USUÁRIO
         Usuario usuario = new Usuario();
         usuario.setNome(dto.getNome());
         usuario.setUsername(dto.getUsername());
         usuario.setAdmin(dto.isAdmin());
-        usuario.setSenha(passwordEncoder.encode(dto.getSenha()));
+        usuario.setSenha(passwordEncoder.encode(dto.getSenha())); //MÉTODO PARA CRIPTOGRAFAR SENHA
 
         return usuarioRepository.save(usuario);
     }
@@ -56,7 +65,7 @@ public class UsuarioService {
         if (usuarioOpt.isPresent()) {
             Usuario usuario = usuarioOpt.get();
 
-            // não permitir salvar sem alterações
+            // NÃO PERMITIR SALVAR SEM ALTERAÇÕES
             boolean semAlteracao = usuario.getNome().equalsIgnoreCase(dto.getNome())
                     && usuario.getUsername().equalsIgnoreCase(dto.getUsername())
                     && dto.getSenha().isBlank()
@@ -65,7 +74,7 @@ public class UsuarioService {
                 throw new RuntimeException("Nenhuma alteração foi realizada.");
             }
 
-            // verificar duplicidade de nome/username
+            // VERIFICA DUPLICIDADE DE NOME E USERNAME
             if (usuarioRepository.findAll().stream()
                     .anyMatch(u -> u.getId() != usuario.getId()
                             && u.getNome().equalsIgnoreCase(dto.getNome()))) {
@@ -81,7 +90,7 @@ public class UsuarioService {
             usuario.setUsername(dto.getUsername());
             usuario.setAdmin(dto.isAdmin());
 
-            // senha só muda se for diferente
+            //SENHA SÓ MUDA SE FOR DIFERENTE
             if (dto.getSenha() != null && !dto.getSenha().isBlank()) {
                 if (passwordEncoder.matches(dto.getSenha(), usuario.getSenha())) {
                     throw new RuntimeException("A nova senha não pode ser igual à anterior.");
