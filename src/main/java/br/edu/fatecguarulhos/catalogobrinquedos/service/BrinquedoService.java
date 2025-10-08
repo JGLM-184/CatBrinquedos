@@ -57,10 +57,49 @@ public class BrinquedoService {
     public List<Brinquedo> buscarPorNome(String nome) {
         return brinquedoRepository.findByNomeContainingIgnoreCase(nome);
     }
+    
+    public List<Brinquedo> buscarFiltrado(String nome, int categoriaId, String marca,
+            String idadeIdeal, double precoMin, double precoMax) {
 
-    public List<Brinquedo> buscarPorFaixaDePreco(double min, double max) {
-        return brinquedoRepository.findByPrecoBetween(min, max);
-    }
+	    // Inicia com todos
+	    List<Brinquedo> lista = brinquedoRepository.findAll();
+	
+		if (!nome.equals("")) {
+			lista = lista.stream()
+			.filter(b -> b.getNome().toLowerCase().contains(nome.toLowerCase()))
+			.toList();
+		}
+		
+		if (categoriaId > 0) {
+			lista = lista.stream()
+			.filter(b -> String.valueOf(b.getCategoria().getId()).equals(String.valueOf(categoriaId)))
+			.toList();
+		}
+		
+		if (!marca.equals("")) {
+			lista = lista.stream()
+			.filter(b -> b.getMarca().toLowerCase().contains(marca.toLowerCase()))
+			.toList();
+		}
+		
+		if (!idadeIdeal.equals("")) {
+			lista = lista.stream()
+			.filter(b -> b.getIdadeIdeal().toLowerCase().contains(idadeIdeal.toLowerCase()))
+			.toList();
+		}
+		
+		if (precoMin > 0) {
+			lista = lista.stream()
+			.filter(b -> b.getPreco() >= precoMin).toList();
+		}
+		
+		if (precoMax > 0) {
+			lista = lista.stream()
+			.filter(b -> b.getPreco() <= precoMax).toList();
+		}
+		
+		return lista;
+	}
 
     //-------------------- CRUD --------------------
 

@@ -121,6 +121,59 @@
     <!-- Conteúdo principal -->
     <main class="container">
         <h1>Catálogo de Brinquedos</h1>
+        
+        <!-- Formulário de Filtro -->
+		<form class="row g-3 mb-4" th:action="@{/catalogo/pesquisa}" method="get">
+		    <!-- Nome -->
+		    <div class="col-md-8">
+		        <input type="text" class="form-control" name="nome" placeholder="Buscar por nome" 
+		               th:value="${param.nome}">
+		    </div>
+		
+		    <!-- Categoria -->
+		    <div class="col-md-4">
+		        <select class="form-select" name="categoriaId">
+		            <option value="0">Todas as Categorias</option>
+		            <option th:each="cat : ${listaDeCategorias}" 
+		                    th:value="${cat.id}" 
+		                    th:text="${cat.nome}"
+		                    th:selected="${param.categoriaId} == ${cat.id}">
+		            </option>
+		        </select>
+		    </div>
+		
+		    <!-- Marca -->
+		    <div class="col-md-8">
+		        <input type="text" class="form-control" name="marca" placeholder="Marca"
+		               th:value="${param.marca}">
+		    </div>
+		
+		    <!-- Idade Ideal -->
+		    <div class="col-md-4">
+		        <input type="text" class="form-control" name="idadeIdeal" placeholder="Idade Ideal"
+		               th:value="${param.idadeIdeal}">
+		    </div>
+		
+		    <!-- Preço mínimo -->
+		    <div class="col-md-3">
+		        <input type="number" step="0.01" class="form-control" name="precoMin" placeholder="Preço mín."
+		               th:value="${param.precoMin}">
+		    </div>
+		
+		    <!-- Preço máximo -->
+		    <div class="col-md-3">
+		        <input type="number" step="0.01" class="form-control" name="precoMax" placeholder="Preço máx."
+		               th:value="${param.precoMax}">
+		    </div>
+		
+		    <div class="col-md-3">
+		        <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+		    </div>
+		    <div class="col-md-3">
+		        <a th:href="@{/catalogo}" class="btn btn-secondary w-100">Limpar</a>
+		    </div>
+		</form>
+        
 		<div class="row g-4 justify-content-center" th:if="${termoBusca != null}">
 			<p class="com-brinquedos"  th:utext="'<strong>Resultados para:</strong> ' + ${termoBusca}"></p>
 		</div>

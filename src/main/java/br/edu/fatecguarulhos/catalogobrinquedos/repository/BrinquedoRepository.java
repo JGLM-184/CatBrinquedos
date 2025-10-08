@@ -13,8 +13,6 @@ public interface BrinquedoRepository extends JpaRepository<Brinquedo, Integer>{
 	public List<Brinquedo> findByNomeContainingIgnoreCase(String nome);
 	
 	List<Brinquedo> findByCategoria(Categoria categoria);
-	
-    List<Brinquedo> findByPrecoBetween(double min, double max);
 
 	List<Brinquedo> findAllByOrderByNomeAsc();
 

@@ -38,7 +38,27 @@ public class BrinquedoWebController {
     //TELA DO CATÁLOGO COM TODOS OS BRINQUEDOS
     @GetMapping("/catalogo")
     public String catalogo(Model model) {
-        model.addAttribute("listaDeBrinquedos", brinquedoService.listarTodos());
+    	model.addAttribute("listaDeBrinquedos", brinquedoService.listarTodos());
+        model.addAttribute("listaDeCategorias", categoriaService.listarTodas());
+        return "catalogo";
+    }
+    //TELA DO CATÁLOGO COM TODOS OS BRINQUEDOS FILTRADOS
+    @GetMapping("/catalogo/pesquisa")
+    public String catalogoFiltrado(
+    	//Filtros de Busca
+    	@RequestParam(defaultValue = "") String nome,
+        @RequestParam(defaultValue = "0") int categoriaId,
+        @RequestParam(defaultValue = "") String marca,
+        @RequestParam(defaultValue = "") String idadeIdeal,
+        @RequestParam(defaultValue = "0") double precoMin,
+        @RequestParam(defaultValue = "0") double precoMax,
+        Model model) {
+
+        // Busca todos ou filtrados
+        List<Brinquedo> brinquedos = brinquedoService.buscarFiltrado(
+        		nome, categoriaId, marca, idadeIdeal, precoMin, precoMax);
+    	
+    	model.addAttribute("listaDeBrinquedos", brinquedos);
         model.addAttribute("listaDeCategorias", categoriaService.listarTodas());
         return "catalogo";
     }
