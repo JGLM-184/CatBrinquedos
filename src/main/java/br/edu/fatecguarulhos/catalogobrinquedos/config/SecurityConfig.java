@@ -15,7 +15,7 @@ public class SecurityConfig {
         http
         .authorizeHttpRequests(auth -> auth
         		//TORNA ESSAS ROTAS PÚBLICAS (NÃO PEDE LOGIN)
-        	    .requestMatchers("/", "/inicio", "/detalhe/**", "/catalogo", "/buscar", "/sobre", "/categoria/**", "/imagens/**", "/css/**", "/js/**").permitAll()
+        	    .requestMatchers("/**", "/inicio", "/detalhe/**", "/catalogo", "/buscar", "/sobre", "/categoria/**", "/imagens/**", "/css/**", "/js/**").permitAll()
         	    
         	    //QUALQUER USUÁRIO AUTENTICADO PODE ACESSAR O PAINEL
         	    .requestMatchers("/usuarios/painel").authenticated()
@@ -38,7 +38,7 @@ public class SecurityConfig {
         //CUIDA DA PARTE DE LOGOU, CHAMA A API QUE TEM O INICIO.HTML AO SAIR
             .logout(logout -> logout
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/inicio")
+                .logoutSuccessUrl("/")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .permitAll()
