@@ -1,9 +1,15 @@
 package br.edu.fatecguarulhos.catalogobrinquedos.controller.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.edu.fatecguarulhos.catalogobrinquedos.model.entity.Brinquedo;
 import br.edu.fatecguarulhos.catalogobrinquedos.service.BrinquedoService;
@@ -22,7 +28,7 @@ public class BrinquedoWebController {
     // ------------------- ROTAS PÚBLICAS -------------------
     
     //TELA INICIAL
-    @GetMapping("/inicio")
+    @GetMapping("/")
     public String inicio(Model model) {
         model.addAttribute("listaDeBrinquedos", brinquedoService.listarTodos());
         model.addAttribute("listaDeCategorias", categoriaService.listarTodas());
@@ -35,6 +41,12 @@ public class BrinquedoWebController {
         model.addAttribute("listaDeBrinquedos", brinquedoService.listarTodos());
         model.addAttribute("listaDeCategorias", categoriaService.listarTodas());
         return "catalogo";
+    }
+    
+    @GetMapping("/favoritos")
+    public String favoritos(Model model) {
+        model.addAttribute("listaDeCategorias", categoriaService.listarTodas());
+        return "favoritos";
     }
 
     //PESQUISAR NOME DE BRINQUEDO
@@ -60,5 +72,12 @@ public class BrinquedoWebController {
     public String sobre() {
      
         return "sobre";
+    }
+    
+    //URL PARA A LISTA DE DESEJOS PEGAR OS BRINQUEDOS
+    @GetMapping("/api/brinquedos")
+    @ResponseBody
+    public List<Brinquedo> listarTodos() {
+        return brinquedoService.listarTodos();
     }
 }

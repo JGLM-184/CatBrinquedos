@@ -35,13 +35,13 @@
     <nav class="navbar navbar-expand-sm fixed-top" style="background-color: #8AA7F0;">
         <div class="container">
 			<img src="/imagens/kitty.png" alt="Avatar Logo" style="width:50px;">
-            <a class="navbar-brand" th:href="@{/inicio}">Cat Brinquedos</a>
+            <a class="navbar-brand" th:href="@{/}">Cat Brinquedos</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="mynavbar">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" th:href="@{/inicio}">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/}">Início</a></li>
                     <li class="nav-item"><a class="nav-link" th:href="@{/catalogo}">Catálogo</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Categorias</a>
@@ -51,6 +51,7 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/favoritos}">Favoritos</a></li>
                     <li class="nav-item"><a class="nav-link" th:href="@{/sobre}">Sobre</a></li>
                 </ul>
 

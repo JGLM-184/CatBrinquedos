@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
-    
     <!-- Fonte Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- CSS custom -->
-    <link rel="stylesheet" href="css/styles.css">
     <style>
 		body {
 			background-image: url("/imagens/fundo5.png");
@@ -18,15 +15,13 @@
 		}
 		
 		.product-detail-container {
+			background-color: #FFF;
+			border: solid 2px #489FB2;
 			display: flex;
 			gap: 40px;
 			padding: 40px 5%;
-			max-width: 1200px;
-			margin: 0 auto
-		}
-		
-		.product-image {
-			flex: 1;
+			max-width: 75%;
+			margin: 0 auto;
 		}
 		
 		.product-image img {
@@ -37,22 +32,10 @@
 		    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 		}
 		
-		.product-info {
-			flex: 2;
-		}
-		
 		.product-info h1 {
 			color: var(--primary-color);
 		    margin-top: 0;
 		    font-size: 2.5em;
-		}
-		
-		.product-info .price {
-			font-size: 2.2em;
-			font-weight: 700;
-			color: var(--secondary-color);
-			margin: 20px 0;
-			display: block;
 		}
 		
 		.product-info .description-section {
@@ -61,28 +44,10 @@
 			padding-top: 20px;
 		}
 		
-		.product-info .description-section h2 {
-			font-size: 1.5em;
-			color: var(--text-dark);
-			margin-bottom: 15px;
-		}
-		
-		@media (max-width: 768px) {
-			.product-detail-container {
-				flex-direction: column;
-			}
-		}
-		
 		.footer-navbar {
 			padding-top: 2px;
 		    font-size: 0.8rem;
 	        height: 32px;
-		}
-		
-		.card-img-top {
-			width: 10cm;
-			height: 12cm;
-			object-fit: fill;
 		}
 		
 		.espaco-Topo {
@@ -90,7 +55,6 @@
 		}
 		
 		.btn-primary {
-			background-color: #FFD469;
 			border: none;
 		}
 		
@@ -102,31 +66,43 @@
 <body>
 	<!-- Navbar -->
 	<div th:replace="~{navbar :: navbar}"></div>
-	<main >
-		<div class="espaco-Topo">
-		<div class="product-detail-container">
-		  <div class="product-image">
-		     <img th:src="${brinquedo.imagemPrincipal}" class="card-img-top" th:alt="${brinquedo.nome}">
-		       </div>
-		        <div class="product-info">
-		          <h1 th:text="${brinquedo.nome}"></h1>
-		           
-		           <div class="description-section">
-		           <h2>Detalhes do brinquedo:</h2>
-		           <p th:text="${brinquedo.descricao}"></p>
-				   <p><strong>Marca:</strong> <span th:text="${brinquedo.marca}"></span></p>
-				   <p><strong>Categoria:</strong> <span th:text="${brinquedo.categoria.nome}"></span></p>
-				   <p><strong>Idade Ideal:</strong> <span th:text="${brinquedo.idadeIdeal}"></span></p>
-				   <h3><p><strong>Preço:</strong> R$ <span class="preco" th:text="${#numbers.formatDecimal(brinquedo.preco, 2, 'COMMA', 2, 'POINT')}"></span></p></h3>
-				   <button class="btn btn-primary w-50 mt-3">Adicionar à lista de desejo</button>
-		     </div>
-		   </div>
-		</div>
-		</div>
 
+	<main>
+		<div class="espaco-Topo">
+			<div class="product-detail-container">
+				<div class="product-image">
+					<img th:src="${brinquedo.imagemPrincipal}" class="card-img-top" th:alt="${brinquedo.nome}">
+				</div>
+
+				<div class="product-info">
+					<h1 th:text="${brinquedo.nome}"></h1>
+
+					<div class="description-section">
+						<h2>Detalhes do brinquedo:</h2>
+						<p th:text="${brinquedo.descricao}"></p>
+						<p><strong>Marca:</strong> <span th:text="${brinquedo.marca}"></span></p>
+						<p><strong>Categoria:</strong> <span th:text="${brinquedo.categoria.nome}"></span></p>
+						<p><strong>Idade Ideal:</strong> <span th:text="${brinquedo.idadeIdeal}"></span></p>
+						
+						<h3>
+							<p>
+								<strong>Preço:</strong> 
+								R$ <span class="preco" th:text="${#numbers.formatDecimal(brinquedo.preco, 2, 'COMMA', 2, 'POINT')}"></span>
+							</p>
+						</h3>
+
+						<!-- Botão para adicionar à lista de desejos -->
+						<button class="btn btn-primary w-75 mt-3" 
+						        th:attr="onclick='adicionarDesejo(' + ${brinquedo.id} + ')'">
+							Adicionar à lista de desejos
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</main>
 
-    <!-- Footer -->
+	<!-- Footer -->
 	<footer class="navbar navbar-expand-sm fixed-bottom footer-navbar">
 		<div class="container-fluid" style="background-color: rgb(224, 224, 239);">
 			<span class="navbar-text mx-auto">&copy; 2025 Cat Brinquedos. Todos os direitos reservados.</span>
@@ -135,5 +111,20 @@
 			
 	<!-- Bootstrap JS -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Script Lista de Desejos -->
+	<script>
+		function adicionarDesejo(id) {
+			let lista = JSON.parse(localStorage.getItem('listaDesejos')) || [];
+
+			if (!lista.includes(id)) {
+				lista.push(id);
+				localStorage.setItem('listaDesejos', JSON.stringify(lista));
+				alert('Brinquedo adicionado à lista de desejos!');
+			} else {
+				alert('Este brinquedo já está na lista de desejos.');
+			}
+		}
+	</script>
 </body>
 </html>

@@ -36,7 +36,6 @@
             <table class="table table-striped table-bordered align-middle">
                 <thead class="table-light">
                     <tr>
-                        <th>Id</th>
                         <th>Nome</th>
                         <th>Marca</th>
                         <th>Categoria</th>
@@ -47,7 +46,6 @@
                 </thead>
                 <tbody>
                     <tr th:each="b : ${listaDeBrinquedos}">
-                        <td th:text="${b.id}">1</td>
                         <td th:text="${b.nome}">Nome</td>
                         <td th:text="${b.marca}">Marca</td>
                         <td th:text="${b.categoria.nome}">Categoria</td>
