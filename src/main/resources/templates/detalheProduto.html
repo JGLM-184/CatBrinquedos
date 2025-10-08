@@ -8,11 +8,22 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-		body {
-			background-image: url("/imagens/fundo5.png");
-			background-size: fill;
-			background-position: right left;
-		}
+		html, body {
+	        height: 100%;
+	        margin: 0;
+	        display: flex;
+	        flex-direction: column;
+	        background-image: url("/imagens/fundo5.png");
+	        background-size: cover;
+	        background-position: right left;
+	        font-family: 'Poppins', sans-serif;
+	    }
+	
+	    main {
+	        margin-top: 3rem;
+	        margin-bottom: 3rem;
+	        flex: 1; /* empurra o footer para baixo */
+	    }
 		
 		.product-detail-container {
 			background-color: #FFF;
@@ -103,11 +114,11 @@
 	</main>
 
 	<!-- Footer -->
-	<footer class="navbar navbar-expand-sm fixed-bottom footer-navbar">
-		<div class="container-fluid" style="background-color: rgb(224, 224, 239);">
-			<span class="navbar-text mx-auto">&copy; 2025 Cat Brinquedos. Todos os direitos reservados.</span>
-		</div>
-	</footer>
+	<footer class="navbar navbar-expand-sm footer-navbar">
+        <div class="container-fluid" style="background-color: rgb(224, 224, 239);">
+            <span class="navbar-text mx-auto">&copy; 2025 Cat Brinquedos. Todos os direitos reservados.</span>
+        </div>
+    </footer>
 			
 	<!-- Bootstrap JS -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

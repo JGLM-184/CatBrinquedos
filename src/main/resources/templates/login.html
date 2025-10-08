@@ -13,17 +13,24 @@
 
     <!-- CSS custom -->
     <link rel="stylesheet" href="css/styles.css">
-
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8f9fa;
-        }
+	
+	<style>
+		html, body {
+	        height: 100%;
+	        margin: 0;
+	        display: flex;
+	        flex-direction: column;
+	        font-family: 'Poppins', sans-serif;
+	    }
+	
+	    main {
+	        flex: 1; /* empurra o footer para baixo */
+	    }
 
         .login-container {
             width: 100%;
             max-width: 500px;
-            margin: 50px auto;
+            margin: auto;
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 10px;
@@ -78,7 +85,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="navbar navbar-expand-sm fixed-bottom footer-navbar">
+    <footer class="navbar navbar-expand-sm footer-navbar">
         <div class="container-fluid" style="background-color: rgb(224, 224, 239);">
             <span class="navbar-text mx-auto">&copy; 2025 Cat Brinquedos. Todos os direitos reservados.</span>
         </div>

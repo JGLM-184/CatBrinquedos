@@ -12,16 +12,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
-        body {
-            background-image: url("/imagens/fundo5.png");
-            background-size: cover;
-            background-position: center;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        main {
-            margin-top: 100px;
-        }
+	    html, body {
+	        height: 100%;
+	        margin: 0;
+	        display: flex;
+	        flex-direction: column;
+	        background-image: url("/imagens/fundo5.png");
+	        background-size: cover;
+	        background-position: right left;
+	        font-family: 'Poppins', sans-serif;
+	    }
+	
+	    main {
+	        margin-top: 100px;
+	        flex: 1; /* empurra o footer para baixo */
+	    }
 
         h1 {
             text-align: center;
