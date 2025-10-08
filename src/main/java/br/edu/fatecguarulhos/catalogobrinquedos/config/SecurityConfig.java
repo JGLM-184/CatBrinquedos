@@ -38,7 +38,7 @@ public class SecurityConfig {
         //CUIDA DA PARTE DE LOGOU, CHAMA A API QUE TEM O INICIO.HTML AO SAIR
             .logout(logout -> logout
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/usuarios/login")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .permitAll()
