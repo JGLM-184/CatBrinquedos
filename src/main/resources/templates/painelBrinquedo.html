@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Administração de Brinquedos - Cat Brinquedos</title>
+    <link rel="icon" href="/imagens/kitty.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Fonte Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -67,7 +68,7 @@
                                th:href="@{'/admin/brinquedos/editar-brinquedo/' + ${b.id}}">Editar</a>
                             <a class="btn btn-sm btn-outline-danger"
                                th:href="@{'/admin/brinquedos/excluir-brinquedo/' + ${b.id}}"
-                               onclick="return confirm('Tem certeza que deseja excluir este brinquedo?')">Excluir</a>
+                               th:attr="onclick='return confirm(\'Tem certeza que deseja excluir este brinquedo?\')'">Excluir</a>
                         </td>
                     </tr>
                 </tbody>

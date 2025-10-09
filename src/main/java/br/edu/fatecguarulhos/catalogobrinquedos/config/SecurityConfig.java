@@ -15,7 +15,7 @@ public class SecurityConfig {
         http
         .authorizeHttpRequests(auth -> auth
         		//TORNA ESSAS ROTAS PÚBLICAS (NÃO PEDE LOGIN)
-        	    .requestMatchers("/**", "/inicio", "/detalhe/**", "/catalogo", "/favoritos", "/buscar", "/sobre", "/categoria/**", "/imagens/**", "/css/**", "/js/**").permitAll()
+        	    .requestMatchers("/", "/inicio", "/detalhe/**", "/catalogo/**", "/favoritos", "/buscar", "/sobre", "/categoria/**", "/imagens/**", "/css/**", "/js/**").permitAll()
         	    
         	    //QUALQUER USUÁRIO AUTENTICADO PODE ACESSAR O PAINEL
         	    .requestMatchers("/usuarios/painel").authenticated()
