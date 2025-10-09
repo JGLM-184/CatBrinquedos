@@ -14,7 +14,7 @@ INSERT INTO categoria (nome) VALUES ('Natal');
 INSERT INTO categoria (nome) VALUES ('Halloween');
 
 --Veículos--
-INSERT INTO brinquedo (nome, marca, categoria_id, descricao, idade_ideal, imagem_principal, preco, destaque) VALUES ('Carrinho de Controle Remoto', 'FunToy', 1, 'Carrinho maneiro', '6+', '/imagens/brinquedos/Carrinho de Controle Remoto.jpg', 149.90, false);
+INSERT INTO brinquedo (nome, marca, categoria_id, descricao, idade_ideal, imagem_principal, preco, destaque) VALUES ('Carrinho de Controle Remoto', 'FunToy', 1, 'Carrinho maneiro', '6+', '/imagens/brinquedos/Carrinho de Controle Remoto.png', 149.90, false);
 INSERT INTO brinquedo (nome, marca, categoria_id, descricao, idade_ideal, imagem_principal, preco, destaque) VALUES ('Carro Relâmpago Marquinhos', 'Líder Brinquedos', 1, 'McQueen volta à tona com seu melhor amigo Mate. E precisará levar seus passaportes em um mundo de intrigas, ação e comédia ao redor do mundo. Com um novo chefe, eles irão disputar a Corrida dos Campeões. Seu filho não vai querer ficar fora dessa corrida.', '4+', '/imagens/brinquedos/CarroRelampagoMC.png', 95.89, false);
 INSERT INTO brinquedo (nome, marca, categoria_id, descricao, idade_ideal, imagem_principal, preco, destaque) VALUES ('Carrinho de Controle Remoto Bem 10', 'Candide', 1, 'Veículo de rádio controle de 7 funções. Pronto para brincar. Utiliza 4 pilhas AA no carro e 1 bateria 9V no controle (inclusas para demonstração).', '7+', '/imagens/brinquedos/CarroBen10.png', 149.90, false);
 

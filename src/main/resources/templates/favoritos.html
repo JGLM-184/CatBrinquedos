@@ -50,7 +50,7 @@
         .card-img-top {
             width: 100%;
             height: 180px;
-            object-fit: cover;
+            object-fit: fill;
         }
 
         .card-body h5 {
@@ -103,7 +103,7 @@
         }
 
         .footer-navbar {
-            padding-top: 2cm;
+            padding-top: 1cm;
             font-size: 0.8rem;
             height: 32px;
         }
@@ -148,7 +148,7 @@
                 return;
             }
 
-            // Buscar brinquedos por API (substitua a URL pela da sua aplicação)
+            // Buscar brinquedos por API 
             fetch("/api/brinquedos")
                 .then(res => res.json())
                 .then(brinquedos => {
