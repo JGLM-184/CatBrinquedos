@@ -43,6 +43,19 @@ public class SecurityConfig {
                 .deleteCookies("JSESSIONID")
                 .permitAll()
             )
+            
+            // TRATA ACESSO NÃO AUTORIZADO
+            .exceptionHandling(exception -> exception
+                // Se o usuário NÃO estiver autenticado, redireciona para /inicio
+                .authenticationEntryPoint((request, response, authException) -> {
+                    response.sendRedirect("/");
+                })
+                // Se estiver autenticado e a página não existir, lança erro 404
+                .accessDeniedHandler((request, response, accessDeniedException) -> {
+                    response.sendRedirect("/error");
+                })
+            )
+            
             //CSRF: PROTEÇÃO CONTRA REQUISIÇÕES MALICIOSAS USANDO A SESSÃO DO USUÁRIO
             //PODE SER DESABILITADA EM TESTES PARA FACILITAR
             .csrf(csrf -> csrf.disable());

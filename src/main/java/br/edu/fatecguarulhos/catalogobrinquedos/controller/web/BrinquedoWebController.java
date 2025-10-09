@@ -69,16 +69,6 @@ public class BrinquedoWebController {
         return "favoritos";
     }
 
-    //PESQUISAR NOME DE BRINQUEDO
-    //USA A TELA DO CATÁLOGO MAS COM FILTRO DA PESQUISA
-    @GetMapping("/buscar")
-    public String buscarBrinquedo(@RequestParam("nome") String nome, Model model) {
-        model.addAttribute("listaDeBrinquedos", brinquedoService.buscarPorNome(nome));
-        model.addAttribute("listaDeCategorias", categoriaService.listarTodas());
-        model.addAttribute("termoBusca", nome);
-        return "catalogo";
-    }
-
     //TELA COM DETALHE DE UM BRINQUEDO
     @GetMapping("/detalhe/{id}")
     public String detalheBrinquedo(@PathVariable int id, Model model) {
